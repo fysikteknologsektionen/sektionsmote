@@ -20,7 +20,7 @@ module ApplicationHelper
   end
 
   def full_title(page_title)
-    base_title = 'Röstsystem'
+    base_title = 'Sektionsmöte'
     if page_title.empty?
       base_title
     else
