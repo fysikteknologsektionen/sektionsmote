@@ -2,8 +2,8 @@ sv:
   about:
     title: Om webbplatsen
     what_is:
-      title: Vad är Röstsystem?
-      text: Röstsystem är ett digitalt verktyg för att hantera voteringar och justeringar under sektionsmöten. Systemet har skapats för att göra sektionsmötena snabbare och smidigare.
+      title: Vad är denna webbsida?
+      text: Denna webbsida är ett digitalt verktyg för att hantera voteringar och justeringar under sektionsmöten. Systemet har skapats för att göra sektionsmöten snabbare och smidigare.
 
     how_start:
       title: Hur förbereder jag mig inför mötet?
@@ -17,7 +17,7 @@ sv:
 
     votes:
       title: Voteringar
-      text: För slutna voteringar kommer Röstsystem att användas. Du behöver vara inloggad, injusterad och ha din röstkod (se nedan) tillgänglig för att kunna rösta. På röstsidan knappar du in din röstkod och väljer det alternativ du vill rösta på. Efter att du har skickat in din röst blir det omöjligt att ändra den, så se till att du väljer rätt alternativ.
+      text: För slutna voteringar kommer denna sida att användas. Du behöver vara inloggad, injusterad och ha din röstkod (se nedan) tillgänglig för att kunna rösta. På röstsidan knappar du in din röstkod och väljer det alternativ du vill rösta på. Efter att du har skickat in din röst blir det omöjligt att ändra den, så se till att du väljer rätt alternativ.
 
     votecode:
       title: Röstkod
@@ -28,8 +28,8 @@ sv:
       text: För att man inte ska kunna rösta flera gånger behöver vi spara information om vem som har deltagit i en votering. Det sparas dock ingen information om vad någon har röstat på.
 
     by:
-      title: Hur har Röstsystem utvecklats?
-      text: "Utvecklingen av Röstsystem påbörjades vid årsskiftet 2015/2016 av Jakob och har fortsatt under hela våren. Tillsammans med engagerade medlemmar har systemet utvecklats för att kunna göra deltagande vid sektionsmöten enklare och effektivare, men också förenkla styrelsens arbete före och efter mötet."
+      title: Hur har denns sida utvecklats?
+      text: "Utvecklingen av sidan påbörjades med namnet Röstsystem vid årsskiftet 2015/2016 av Jakob på F-sektionen på LTH och har fortsatt under hela våren. Tillsammans med engagerade medlemmar har systemet utvecklats för att kunna göra deltagande vid sektionsmöten enklare och effektivare, men också förenkla styrelsens arbete före och efter mötet."
       developers: Utvecklat av
 
     questions: Frågor?
