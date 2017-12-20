@@ -13,7 +13,7 @@ RSpec.describe ApplicationMailer, type: :mailer do
   describe 'Message-ID' do
     it 'sets header' do
       mail = mailer.an_email
-      mail.message_id.should include('@rostsystem.se')
+      mail.message_id.should include('@ftek.se')
     end
   end
 end

@@ -4,16 +4,16 @@ require 'rails_helper'
 
 RSpec.describe MessageMailer, type: :mailer do
   it 'sends to the given contact' do
-    message = Message.new(email: 'david@rostsystem.se',
+    message = Message.new(email: 'styret.info@ftek.se',
                           message: 'Waow',
                           name: 'David')
     mail = MessageMailer.email(message)
 
-    mail.cc.should eq(['david@rostsystem.se'])
+    mail.cc.should eq(['styret.info@ftek.se'])
   end
 
   it 'includes the text' do
-    message = Message.new(email: 'david@rostsystem.se',
+    message = Message.new(email: 'styret.info@ftek.se',
                           message: 'Waow - mitt meddelande',
                           name: 'David')
     mail = MessageMailer.email(message)

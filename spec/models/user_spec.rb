@@ -31,28 +31,28 @@ RSpec.describe User, type: :model do
       end
     end
 
-    describe 'validate email as stilid@student.lu.se' do
+    describe 'validate email as stilid@student.chalmers.se' do
       it 'allows student email Stil-ID' do
-        user = build(:user, email: 'tfy16hal@student.lu.se')
+        user = build(:user, email: 'cid@student.chalmers.se')
 
         user.should be_valid
       end
 
       it 'allows student email Lucat-ID' do
-        user = build(:user, email: 'hi6122al-x@student.lu.se')
+        user = build(:user, email: 'hi6122al-x@student.chalmers.se')
 
         user.should be_valid
       end
 
       it 'should be invalid' do
-        user = build(:user, email: 'hilbert.alg.237@student.lu.se')
+        user = build(:user, email: 'hilbert.alg.237@student.chalmers.se')
 
         user.should be_invalid
         user.errors[:email].should include(I18n.t('user.email_format'))
       end
 
       it 'should be invalid' do
-        user = build(:user, email: 'tfy16hal@google.lu.se')
+        user = build(:user, email: 'cid@google.lu.se')
 
         user.should be_invalid
         user.errors[:email].should include(I18n.t('user.email_format'))

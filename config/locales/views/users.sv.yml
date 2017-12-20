@@ -17,7 +17,7 @@ sv:
     confirm_card_number: Kontrollera att kortnumret är korrekt, kan endast ändras av administratör.
     edit: Redigera kontouppgifter
     email_confirmed: Din e-postadress är bekräftad.
-    email_format: Endast epost kopplad till skolan är godkänd, t.ex. tfy15hal@student.lu.se.
+    email_format: Endast epost kopplad till skolan är godkänd, t.ex. cid@student.chalmers.se.
     make_all_not_present: Justera ut alla användare
     make_not_present: Justera ut
     make_present: Justera in

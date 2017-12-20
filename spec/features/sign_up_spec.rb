@@ -4,7 +4,7 @@ RSpec.feature 'User sign up' do
     page.visit(new_user_registration_path)
     page.fill_in 'user[firstname]', with: 'Hilbert'
     page.fill_in 'user[lastname]', with: 'Älg'
-    page.fill_in 'user[email]', with: 'tfy13hal@student.lu.se'
+    page.fill_in 'user[email]', with: 'cid@student.chalmers.se'
     page.fill_in 'user[password]', with: '12345678'
     page.fill_in 'user[password_confirmation]', with: '12345678'
     find('#user-submit').click
