@@ -1,8 +1,8 @@
 sv:
   contacts:
     index:
-      description: Vi styr Röstsystemet och kan hjälpa till om ni har problem.
-      rostiga: Röstiga
+      description: Vi styr sektionsmötet och kan hjälpa till om ni har problem.
+      rostiga: Informationsansvarig
       title: Kontakt
       send_message: Skicka meddelande
 
