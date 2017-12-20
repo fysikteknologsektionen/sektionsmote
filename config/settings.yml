@@ -1,9 +1,9 @@
 start:
   title: Sektionsmöte på Fysikteknologsektionen!
-  logo: f
+  logo: <img src="https://ftek.se/wp-content/themes/ftek/images/logo.svg" style="height: 60px;margin: -18px 0px;">
 css:
   main_color: "#000000"
   highlight_color: "rgba(252, 0, 0, 0.5)"
   hover_color: "#D20000"
-  logo_color: "#FFFFFF"
+  logo_color: "#000000"
   logo_size: 68px
