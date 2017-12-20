@@ -1,4 +1,4 @@
-# Röstsystem - a system to assist your general meetings
+# Sektionsmöte - a system to assist your general meetings
 
 ## Use case
 The system helps handling presence and adjustment of election registering, the agenda of the meeting and votes.
@@ -20,14 +20,10 @@ All contributions are very welcome.
 
 Feel free to open **pull requests** with any changes or use the application on your own, just adhere to the license.
 
-## Status
-[![Code Climate](https://codeclimate.com/github/fsek/voting/badges/gpa.svg)](https://codeclimate.com/github/fsek/voting)
-[![Dependency Status](https://gemnasium.com/fsek/voting.svg)](https://gemnasium.com/fsek/voting)
-[![security](https://hakiri.io/github/fsek/voting/master.svg)](https://hakiri.io/github/fsek/voting/master)
-[![CircleCI](https://circleci.com/gh/fsek/voting/tree/master.svg?style=shield&circle-token=:circle-ci-badge-token)](https://circleci.com/gh/fsek/voting/tree/master)
-
 ## History
 The development of Röstsytem started in the end of 2015, [Jakob](https://github.com/navro) did the first development and was then assisted by [David](https://github.com/davidwessman). The system have been used at several general meetings at [F-sektionen](https://fsektionen.se) and also some times at other organisations at LTH in Lund.
+
+It was forked by [Johan](https://github.com/JohanWinther) for use at Fysikteknologsektionen at Chalmers from the end of 2017 and forward.
 
 ## Authors
 
