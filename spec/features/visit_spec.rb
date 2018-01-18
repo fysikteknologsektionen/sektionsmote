@@ -1,10 +1,10 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.feature 'visits paths' do
   paths = {
     contacts: [:index],
-    documents: [:index],
     votes: [:index],
     static_pages: %i[about cookies_information terms]
   }

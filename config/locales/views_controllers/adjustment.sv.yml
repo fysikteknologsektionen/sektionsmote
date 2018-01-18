@@ -1,0 +1,26 @@
+---
+sv:
+  adjustment:
+    edit: Redigera justering
+    in: " – kom in"
+    new: Ny justering
+    not_present: Justerades ut
+    out: " – gick ut"
+    present: Justerades in
+  admin:
+    adjustments:
+      index:
+        manage_agenda: Hantera dagordning
+        manage_attendance_list: Hantera närvarolista
+        manage_vote_users: Hantera justeringar
+        manage_votes: Hantera omröstningar
+        title: Justeringar
+      info:
+        card: betyder att användaren har ett kortnummer.
+        confirmed: betyder att användaren inte har bekräftat sitt konto.
+        key: betyder att användaren har en röstkod.
+        obs1: Justera in en användare som är obekräftad.
+        obs2: Justera ut en användare när en votering är öppen.
+        obs3: Skicka en röstkod till en användare som inte är bekräftad.
+        observe: 'Observera att det **inte** går att:'
+        symbols: Teckenförklaring

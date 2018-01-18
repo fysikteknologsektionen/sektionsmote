@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171117103500) do
+ActiveRecord::Schema.define(version: 20180105115839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,14 +63,22 @@ ActiveRecord::Schema.define(version: 20171117103500) do
   create_table "documents", id: :serial, force: :cascade do |t|
     t.string "pdf", limit: 255
     t.string "title", limit: 255
-    t.boolean "public", default: true, null: false
-    t.string "category", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "user_id"
-    t.integer "agenda_id"
-    t.index ["agenda_id"], name: "index_documents_on_agenda_id"
-    t.index ["user_id"], name: "index_documents_on_user_id"
+    t.integer "position"
+    t.bigint "sub_item_id"
+    t.index ["sub_item_id"], name: "index_documents_on_sub_item_id"
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string "title", null: false
+    t.integer "type", default: 0, null: false
+    t.integer "multiplicity", default: 0, null: false
+    t.integer "position"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_items_on_deleted_at"
   end
 
   create_table "news", id: :serial, force: :cascade do |t|
@@ -81,6 +89,19 @@ ActiveRecord::Schema.define(version: 20171117103500) do
     t.integer "user_id"
     t.string "url"
     t.index ["user_id"], name: "index_news_on_user_id"
+  end
+
+  create_table "sub_items", force: :cascade do |t|
+    t.string "title"
+    t.integer "position"
+    t.bigint "item_id", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_sub_items_on_deleted_at"
+    t.index ["item_id"], name: "index_sub_items_on_item_id"
+    t.index ["status"], name: "index_sub_items_on_status", unique: true, where: "((status < 0) AND (deleted_at IS NULL))"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
@@ -154,7 +175,8 @@ ActiveRecord::Schema.define(version: 20171117103500) do
   add_foreign_key "adjustments", "users"
   add_foreign_key "audits", "users"
   add_foreign_key "audits", "votes"
-  add_foreign_key "documents", "agendas"
+  add_foreign_key "documents", "sub_items"
+  add_foreign_key "sub_items", "items"
   add_foreign_key "vote_options", "votes"
   add_foreign_key "vote_posts", "users"
   add_foreign_key "vote_posts", "votes"

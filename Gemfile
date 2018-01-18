@@ -1,12 +1,15 @@
 # frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 # Do not forget to update in .ruby-version and .circleci/config.yml
-ruby '2.4.2'
+ruby '2.5.0'
 
 gem 'rails', '5.1.4'
 
-gem 'bootstrap-sass'
+gem 'acts_as_list'
+gem 'bootsnap'
+gem 'bootstrap', '~> 4.0.0.beta3'
 gem 'cancancan'
 gem 'carrierwave'
 gem 'carrierwave-aws'
@@ -32,10 +35,6 @@ gem 'textacular'
 gem 'turbolinks'
 gem 'uglifier'
 
-group :production do
-  gem 'therubyracer', platform: :ruby
-end
-
 group :development, :test do
   gem 'better_errors'
   gem 'bullet'
@@ -47,16 +46,15 @@ group :development, :test do
   gem 'pry-rails'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
-  gem 'rubocop'
 end
 
 group :development do
-  gem 'spring'
+  gem 'i18n-tasks'
+  gem 'rubocop'
   gem 'web-console'
 end
 
 group :test do
   gem 'codeclimate-test-reporter', require: false
-  gem 'database_cleaner'
   gem 'shoulda-matchers', require: false
 end

@@ -1,0 +1,10 @@
+---
+sv:
+  admin:
+    attendances:
+      index:
+        export: Exportera CSV
+        manage_agenda: Hantera dagordning
+        manage_users: Hantera användare
+        manage_voting: Hantera voteringar
+        title: Närvarolista

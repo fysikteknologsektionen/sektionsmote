@@ -1,0 +1,13 @@
+---
+sv:
+  admin:
+    news:
+      edit:
+        all_news: Alla nyheter
+        destroy: Förinta nyhet
+        title: Redigera nyhet
+      new:
+        all_news: Alla nyheter
+        title: Ny nyhet
+  news:
+    new: Ny nyhet

@@ -1,56 +1,49 @@
-class Admin::DocumentsController < Admin::BaseController
-  load_and_authorize_resource
+# frozen_string_literal: true
 
-  def index
-    @documents = Document.order(:title).includes(:user, :agenda)
-    @documents = @documents.page(params[:page])
-  end
+module Admin
+  class DocumentsController < Admin::BaseController
+    authorize_resource(class: Item)
 
-  def edit
-    @document = Document.find(params[:id])
-    @categories = Document.categories
-  end
+    def create
+      @sub_item = SubItem.includes(:documents).find(params[:sub_item_id])
+      @document = @sub_item.documents.build(document_params)
 
-  def new
-    @document = Document.new
-    @categories = Document.categories
-  end
-
-  def create
-    @document = Document.new(document_params)
-    @document.user = current_user
-    @categories = Document.categories
-
-    if @document.save
-      redirect_to edit_admin_document_path(@document),
-                  notice: alert_create(Document)
-    else
-      render :new, status: 422
+      if @document.save
+        render(:success)
+      else
+        render(:error, status: 422)
+      end
     end
-  end
 
-  def update
-    @document = Document.find(params[:id])
-    @document.user = current_user
-    @categories = Document.categories
-
-    if @document.update(document_params)
-      redirect_to edit_admin_document_path(@document),
-                  notice: alert_update(Document)
-    else
-      render :edit, status: 422
+    def edit
+      @sub_item = SubItem.includes(:documents).find(params[:sub_item_id])
+      @document = @sub_item.documents.find(params[:id])
     end
-  end
 
-  def destroy
-    Document.find(params[:id]).destroy!
-    redirect_to admin_documents_path, notice: alert_destroy(Document)
-  end
+    def update
+      @sub_item = SubItem.includes(:documents).find(params[:sub_item_id])
+      @document = @sub_item.documents.find(params[:id])
 
-  private
+      if @document.update(document_params)
+        @sub_item.documents.reload
+        render(:success)
+      else
+        render(:error, status: 422)
+      end
+    end
 
-  def document_params
-    params.require(:document).permit(:title, :pdf, :public,
-                                     :category, :agenda_id)
+    def destroy
+      sub_item = SubItem.find(params[:sub_item_id])
+      sub_item.documents.find(params[:id]).destroy!
+
+      redirect_to(edit_admin_item_sub_item_url(sub_item.item, sub_item),
+                  t('.success'))
+    end
+
+    private
+
+    def document_params
+      params.require(:document).permit(:title, :position, :pdf)
+    end
   end
 end

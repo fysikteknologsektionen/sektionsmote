@@ -1,0 +1,47 @@
+<div class="headline">
+  <h1>
+    <%= t('.title') %>
+    <small><%= item_multiplicity(@item.multiplicity) %></small>
+  </h1>
+</div>
+
+<div class="alert alert-danger fade-in" style="display: none;" id="item-status"></div>
+
+<div class="col-md-2 col-sm-12">
+  <%= link_to(t('.all_items'), admin_items_path, class: 'btn secondary') %>
+  <%= link_to(t('.destroy'), admin_item_path(@item), method: :delete,
+                                                      class: 'btn danger') %>
+
+  <% if @item.single? && @item.sub_items.any? %>
+    <hr />
+    <div id="<%= dom_id(@item.sub_items.first) %>">
+      <%= current_item_button(@item.sub_items.first) %>
+    </div>
+  <% end %>
+</div>
+
+<div class="col-md-10 col-sm-12">
+  <%= render('form', item: @item) %>
+</div>
+
+<div class="headline">
+  <h2><%= t('.sub_items') %></h2>
+</div>
+
+<% if @item.single? %>
+  <%= button_to(t('.allow_multiple'), admin_item_path(@item), method: :patch,
+                params: { item: { multiplicity: :multiple } },
+                class: 'btn primary') %>
+<% elsif @item.multiple? %>
+  <div class="col-md-2 col-sm-12">
+    <%= link_to(t('.new_sub_item'), new_admin_item_sub_item_path(@item),
+                                    class: 'btn secondary') %>
+    <%= button_to(t('.allow_single'), admin_item_path(@item), method: :patch,
+                  params: { item: { multiplicity: :single } },
+                  class: 'btn secondary') %>
+  </div>
+
+  <div class="col-md-10 col-sm-12">
+    <%= render('/admin/sub_items/table', item: @item) %>
+  </div>
+<% end %>

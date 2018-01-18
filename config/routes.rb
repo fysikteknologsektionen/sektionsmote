@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     resources :contacts, path: :kontakt, only: [:index] do
       post :mail, on: :collection
     end
-    resources :documents, path: :dokument, only: %i[index show]
+    resources :documents, path: :dokument, only: %i[show]
     resource :user, path: :anvandare, only: [:update] do
       get '', action: :edit, as: :edit
       patch :password, path: :losenord, action: :update_password
@@ -31,12 +31,19 @@ Rails.application.routes.draw do
     end
 
     namespace :admin do
-      resources :documents, path: :dokument, except: :show
       resources :news, path: :nyheter, except: [:show]
 
       resources :adjustments, path: :justering, except: [:show] do
         post :update_row_order, on: :collection
       end
+
+      resources :items, only: %i[create index new edit update destroy] do
+        resources :sub_items, only: %i[new edit create update destroy]
+      end
+      resources :sub_items, only: [] do
+        resources :documents, only: %i[create destroy edit update]
+      end
+      resources :current_items, only: %i[update destroy]
 
       resources :agendas, path: :dagordning, except: [:show]
       resources :current_agendas, path: 'aktuell-dagordning',
