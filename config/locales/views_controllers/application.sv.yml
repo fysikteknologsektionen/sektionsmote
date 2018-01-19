@@ -7,7 +7,7 @@ sv:
       developed_at: Utvecklad vid
     email:
       footer:
-        why_email: Du får detta e-post eftersom du varit inne på Röstsystems webbplats och använt någon av våra tjänster.
+        why_email: Du får detta e-post eftersom du varit inne på Fysikteknologsektionens webbplats och använt någon av våra tjänster.
     menu:
       about: Om
       agenda: Dagordning
@@ -21,4 +21,4 @@ sv:
       settings: Kontoinställningar
       sign_in: Logga in
       sign_up: Registrera
-      title: Röstsystem
+      title: Sektionsmöte
