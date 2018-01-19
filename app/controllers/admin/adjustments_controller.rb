@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
 class Admin::AdjustmentsController < Admin::BaseController
-  load_and_authorize_resource
+  authorize_resource
 
   def new
-    @adjustment = Adjustment.new(user_id: params[:user_id])
+    @user = User.find(params[:user_id])
+    @adjustment = Adjustment.new(user: @user)
   end
 
   def create
     @adjustment = Adjustment.new(adjustment_params)
     if @adjustment.save
       redirect_to admin_vote_user_path(@adjustment.user),
-                  notice: alert_update(Adjustment)
+                  notice: t('.success')
     else
       render :new, status: 422
     end
@@ -23,10 +24,12 @@ class Admin::AdjustmentsController < Admin::BaseController
 
   def update
     @adjustment = Adjustment.find(params[:id])
+    user = @adjustment.user
 
     if @adjustment.update(adjustment_params)
-      redirect_to edit_admin_adjustment_path(@adjustment), notice: alert_update(Adjustment)
+      redirect_to edit_admin_adjustment_path(@adjustment), notice: t('.success')
     else
+      @adjustment.user = user
       render :edit, status: 422
     end
   end
@@ -43,9 +46,8 @@ class Admin::AdjustmentsController < Admin::BaseController
 
   def destroy
     adjustment = Adjustment.find(params[:id])
+    @id = ActionView::RecordIdentifier.dom_id(adjustment)
     adjustment.destroy!
-
-    render json: nil, status: :ok
   end
 
   def index
@@ -55,7 +57,7 @@ class Admin::AdjustmentsController < Admin::BaseController
   private
 
   def adjustment_params
-    params.require(:adjustment).permit(:agenda_id, :presence, :user_id)
+    params.require(:adjustment).permit(:sub_item_id, :presence, :user_id)
   end
 
   def order_params
