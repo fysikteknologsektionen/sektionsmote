@@ -10,11 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180119082851) do
+ActiveRecord::Schema.define(version: 2018_02_02_102049) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
   enable_extension "pg_trgm"
+  enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "adjustments", id: :serial, force: :cascade do |t|
     t.integer "user_id"
@@ -22,7 +43,7 @@ ActiveRecord::Schema.define(version: 20180119082851) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
-    t.integer "row_order"
+    t.integer "position"
     t.bigint "sub_item_id"
     t.index ["deleted_at"], name: "index_adjustments_on_deleted_at"
     t.index ["sub_item_id"], name: "index_adjustments_on_sub_item_id"
@@ -58,16 +79,6 @@ ActiveRecord::Schema.define(version: 20180119082851) do
     t.index ["updater_id"], name: "index_audits_on_updater_id"
     t.index ["user_id"], name: "index_audits_on_user_id"
     t.index ["vote_id"], name: "index_audits_on_vote_id"
-  end
-
-  create_table "documents", id: :serial, force: :cascade do |t|
-    t.string "pdf", limit: 255
-    t.string "title", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "position"
-    t.bigint "sub_item_id"
-    t.index ["sub_item_id"], name: "index_documents_on_sub_item_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -176,7 +187,6 @@ ActiveRecord::Schema.define(version: 20180119082851) do
   add_foreign_key "adjustments", "users"
   add_foreign_key "audits", "users"
   add_foreign_key "audits", "votes"
-  add_foreign_key "documents", "sub_items"
   add_foreign_key "sub_items", "items"
   add_foreign_key "vote_options", "votes"
   add_foreign_key "vote_posts", "users"

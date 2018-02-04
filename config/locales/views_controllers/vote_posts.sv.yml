@@ -9,3 +9,8 @@ sv:
     too_many_options: för många alternativ valda
     unallowed_options: alternativet tillhör ej denna votering
     vote_closed: Voteringen är tyvärr stängd
+  vote_posts:
+    create:
+      success: Din röst har sparats.
+    show:
+      is_closed: Voteringen är tyvärr stängd.

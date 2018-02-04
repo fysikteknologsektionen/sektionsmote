@@ -2,6 +2,8 @@
 sv:
   admin:
     vote_users:
+      adjustments:
+        new_adjustment: Ny justering
       index:
         attendance_list: Närvarolista
         confirm_all_not_present: Är du säker på att du vill justera ut ALLA användare?
@@ -9,17 +11,18 @@ sv:
         manage_agenda: Hantera dagordning
         manage_vote: Hantera voteringar
         quick_adjustments: Snabbjustering
-        title: Administrera justeringar
+        title: Administrera mötesanvändare
       table_header:
         change_state: Justera in/ut
         reset_votecode: Nollställ röstkod
       table_rows:
         confirm_reset: Vill du verkligen nollställa röstkoden?
         reset: Nollställ
+      show:
+        title: Hantera mötesanvändare
+        all_vote_users: Alla mötesanvändare
   vote_user:
     administrate: Administrera justeringar
-    card_number_not_present: Kortnummer ej angivet
-    card_number_present: Kortnummer angivet
     edit: Redigera användare
     mailer:
       votecode:

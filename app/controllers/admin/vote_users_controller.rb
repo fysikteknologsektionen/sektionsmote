@@ -3,7 +3,7 @@
 module Admin
   # Handles vote users displaying
   class VoteUsersController < Admin::BaseController
-    authorize_resource class: false
+    authorize_resource(class: false)
 
     def index
       @vote_status_view = VoteStatusView.new
@@ -15,7 +15,6 @@ module Admin
       @votes = Vote.with_deleted
       @adjustments = @user.adjustments
                           .includes(sub_item: :item)
-                          .rank(:row_order)
       @audits = @user.audits.includes(:updater, :user)
     end
   end

@@ -50,14 +50,14 @@ RSpec.describe User, type: :model do
         user = build(:user, email: 'hilbert.alg.237@student.chalmers.se')
 
         user.should be_invalid
-        user.errors[:email].should include(I18n.t('user.email_format'))
+        user.errors[:email].should include(I18n.t('model.user.email_format'))
       end
 
       it 'should be invalid' do
         user = build(:user, email: 'cid@google.lu.se')
 
         user.should be_invalid
-        user.errors[:email].should include(I18n.t('user.email_format'))
+        user.errors[:email].should include(I18n.t('model.user.email_format'))
       end
     end
   end

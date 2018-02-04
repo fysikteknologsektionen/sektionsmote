@@ -1,0 +1,10 @@
+---
+sv:
+  activemodel:
+    attributes:
+      message:
+        email: E-post
+        message: Meddelande
+        name: Namn
+    models:
+      message: Meddelande

@@ -9,13 +9,13 @@ namespace :dev do
                                    role: :admin)
     u.password = 'passpass'
     u.confirmed_at = Time.zone.now
-    u.save!
+    u.save
 
     a = User.find_or_initialize_by(email: 'spideratest@ftek.se',
                                    firstname: 'Spidera', lastname: 'Test')
     a.confirmed_at = Time.zone.now
     a.password = 'passpass'
-    a.save!
+    a.save
 
     puts 'Sign in with styret.info@ftek.se or spideratest@ftek.se and passpass.'
     News.find_or_create_by!(title: 'Välkommen till Röstsystem',

@@ -5,15 +5,15 @@ source 'https://rubygems.org'
 # Do not forget to update in .ruby-version and .circleci/config.yml
 ruby '2.5.0'
 
-gem 'rails', '5.1.4'
+gem 'rails', git: 'https://github.com/rails/rails', branch: '5-2-stable'
 
-gem 'acts_as_list'
+gem 'acts_as_list', git: 'https://github.com/swanandp/acts_as_list'
+gem 'aws-sdk-s3', '~> 1.8'
 gem 'bootsnap'
 gem 'bootstrap', '~> 4.0.0'
 gem 'cancancan'
-gem 'carrierwave'
-gem 'carrierwave-aws'
 gem 'cocoon'
+gem 'coffee-rails' # Only required because of using 5-2-stable
 gem 'config'
 gem 'cookies_eu'
 gem 'devise'
@@ -25,7 +25,6 @@ gem 'pagedown-bootstrap-rails'
 gem 'paranoia', '~> 2.4'
 gem 'pg'
 gem 'puma'
-gem 'ranked-model'
 gem 'redcarpet'
 gem 'rollbar'
 gem 'sass-rails'
@@ -41,10 +40,8 @@ group :development, :test do
   gem 'capybara'
   gem 'dotenv-rails'
   gem 'factory_bot_rails'
-  gem 'poltergeist'
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'rails-controller-testing'
   gem 'rspec-rails'
 end
 
@@ -55,6 +52,6 @@ group :development do
 end
 
 group :test do
-  gem 'codeclimate-test-reporter', require: false
+  gem 'selenium-webdriver'
   gem 'shoulda-matchers', require: false
 end

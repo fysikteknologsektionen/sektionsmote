@@ -15,39 +15,35 @@ Rails.application.routes.draw do
 
   # Scope to change urls to swedish
   scope path_names: { new: 'ny', edit: 'redigera' } do
-    resources :contacts, path: :kontakt, only: [:index] do
-      post :mail, on: :collection
-    end
-    resources :documents, path: :dokument, only: %i[show]
-    resource :user, path: :anvandare, only: [:update] do
-      get '', action: :edit, as: :edit
-      patch :password, path: :losenord, action: :update_password
+    resource :message, path: :kontakt, only: %i[show create]
+    resource :user, path: :anvandare, only: %i[show update] do
+      get :account, path: :konto
       patch :account, path: :konto, action: :update_account
+      get :password, path: :losenord
+      patch :password, path: :losenord, action: :update_password
     end
 
-    resources :agendas, path: :dagordning, only: %i[index show]
+    resources :items, path: :dagordning, only: %i[index show]
     resources :votes, path: :voteringar, only: :index do
-      resources :vote_posts, only: %i[new create]
+      resource :vote_posts, path: :rost, only: %i[show create]
     end
 
     namespace :admin do
       resources :news, path: :nyheter, except: [:show]
 
       resources :adjustments, path: :justering, except: [:show] do
-        post :update_row_order, on: :collection
+        patch :update_order, path: :ordning, on: :collection
       end
 
-      resources :items, only: %i[create index new edit update destroy] do
+      resources :items, path: :dagordning,
+                        only: %i[create index new edit update destroy] do
         resources :sub_items, only: %i[new edit create update destroy]
       end
       resources :sub_items, only: [] do
-        resources :documents, only: %i[create destroy edit update]
+        resources :documents, only: %i[create destroy]
       end
-      resources :current_items, only: %i[update destroy]
-
-      resources :agendas, path: :dagordning, except: [:show]
-      resources :current_agendas, path: 'aktuell-dagordning',
-                                  only: %i[update destroy]
+      resources :current_items, path: 'aktuell-dagordning',
+                                only: %i[update destroy]
 
       resources :attendances, path: :narvaro, only: %i[index update destroy] do
         delete('', action: :destroy_all, on: :collection)

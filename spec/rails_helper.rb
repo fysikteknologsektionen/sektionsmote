@@ -16,9 +16,6 @@ require 'devise'
 
 ActiveRecord::Migration.maintain_test_schema!
 
-# Loads page_objects which are used in feature test
-Dir[Rails.root.join('spec/page_objects/**/*.rb')].each { |f| require f }
-
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.use_transactional_fixtures = true
@@ -27,6 +24,18 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  config.before(:each, type: :system, js: true) do
+    driven_by :selenium_chrome_headless
+  end
+
+  config.after(:each, type: :system) do
+    FileUtils.rm_rf("#{Rails.root}/storage_test")
+  end
 
   config.include FactoryBot::Syntax::Methods
 
@@ -39,13 +48,6 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.extend ControllerMacros
   config.include RequestMacro, type: :request
-
-  # Clear uploaded files
-  config.after(:each) do
-    if Rails.env.test? || Rails.env.cucumber?
-      FileUtils.rm_rf(Dir["#{Rails.root}/spec/support/uploads"])
-    end
-  end
 end
 
 Shoulda::Matchers.configure do |config|

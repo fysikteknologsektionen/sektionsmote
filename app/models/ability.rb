@@ -9,16 +9,12 @@ class Ability
 
     # Abilities that everyone get.
     can :read, News
-    can %i[mail read], :contact
-    can %i[index about cookies_information terms], :static_pages
-    can %i[index show], Agenda
+    can %i[index show], Item
 
     # Abilities all signed in users get
     return unless user.id.present?
-    can %i[edit show update set_card_number update_password
-           update_account], User, id: user.id
-    can :show, Document
+    can %i[show update account update_account password update_password], User
     can :index, Vote
-    can %i[new create], VotePost
+    can %i[show create], VotePost
   end
 end
