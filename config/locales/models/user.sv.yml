@@ -24,7 +24,10 @@ sv:
     user:
       card_number_already_set: Har redan fyllts i, kontakta administratör för att ändra
       card_number_format: Fel format på kortnumret, använd bindestreck mellan, t.ex. 6122-6122-6122-6122
-      email_format: Endast epost kopplad till skolan är godkänd, t.ex. emil@student.chalmers.se.
+      email_format: Endast epost kopplad till skolan är godkänd, t.ex. cid@student.chalmers.se.
+      errors:
+        presence: Användare kunde inte justeras in, har eposten bekräftats?
+        'votecode:': Ny röstkod kunde inte ges ut, har användare bekräftat sin epost?
       not_confirmed: Din e-postadress är inte bekräftad.
       password_required_update: Nuvarande lösenord måste fyllas i för att byta lösenord
       roles:
