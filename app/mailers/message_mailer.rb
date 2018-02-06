@@ -7,7 +7,7 @@ class MessageMailer < ApplicationMailer
     set_message_id
     sender = "#{message.name} <#{message.email}>"
 
-    mail(to: 'Informationsansvarig <styret.info@ftek.se',
+    mail(to: 'Informationsansvarig <styret.info@ftek.se>',
          subject: t('message_mailer.email.sent_via'),
          cc: sender,
          reply_to: sender)
