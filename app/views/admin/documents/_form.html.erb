@@ -2,9 +2,9 @@
                                method: :post, remote: true) do |f| %>
   <div class="form-group">
     <%= f.label(:files) %>
-    <%= f.file_field(:files, id: :sub_item_files, multiple: true, 
+    <%= f.file_field(:files, id: :sub_item_files, multiple: true,
                             class: 'form-control-file') %>
     <small class="form-text text-muted"><%= t('.allows_multiple_files') %></small>
   </div>
-  <%= f.submit(t('.upload_document'), class: 'btn btn-primary') %>
+  <%= f.submit(t('.upload_document'), class: 'btn primary') %>
 <% end %>
