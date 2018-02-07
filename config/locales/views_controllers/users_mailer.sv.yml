@@ -7,11 +7,11 @@ sv:
       enjoy: Hoppas att ni ska trivas här på webbplatsen under mötet.
       hello: Hej %{user}!
       please_confirm: Vänligen bekräfta ditt konto
-      problem: Har ni några problem får ni väldigt gärna kontakta Röstiga genom att svara på detta epost.
+      problem: Har ni några problem får ni väldigt gärna kontakta Informationsansvarig genom att svara på detta epost.
       registered: Varmt välkommen till denna webbplats, du har lyckats registrera ett konto!
       reset_not_you: Var det inte du som efterfrågade detta? Bortse från detta epost.
-      reset_problem: Har ni några andra problem får ni gärna kontakta Röstiga via denna adress, skriv ett nytt meddelande så att länken inte skickas runt mer än nödvändigt.
+      reset_problem: Har ni några andra problem får ni gärna kontakta Informationsansvarig via denna adress, skriv ett nytt meddelande så att länken inte skickas runt mer än nödvändigt.
       reset_requested: Någon skickade efter en återställning av ditt lösenord.
       reset_until: Fram till %{time} kan du ändra ditt lösenord via nedanstående länk
-      subject_confirm: Välkommen till %{url}
-      subject_password: "%{url} - byte av lösenord"
+      subject_confirm: Välkommen till sektionsmötet
+      subject_password: "Sektionsmöte - byte av lösenord"
