@@ -5,12 +5,12 @@
       <%= image_tag('layout/small_f.png', height: '30px') %>
     <% end %>
     &nbsp;&nbsp;|&nbsp;&nbsp;
-    <%= link_to('https://github.com/Fysikteknologsektionen/sektionsmote', class: 'github') do %>
+    <%= link_to('https://github.com/Fysikteknologsektionen/sektionsmote', class: 'primary') do %>
       <%= fa_icon('github 2x', class: 'align-middle') %>
     <% end %>
     &nbsp;|&nbsp;&nbsp;
     <%= Time.current.year %>
     &copy;
-    <%= link_to('Fysikteknologsektionen', 'https://ftek.se') %>
+    <%= link_to('Fysikteknologsektionen', 'https://ftek.se', class: 'primary') %>
   </div>
 </footer>
