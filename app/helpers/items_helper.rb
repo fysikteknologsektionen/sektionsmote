@@ -34,15 +34,15 @@ module ItemsHelper
     when 'future'
       button_to(t('model.sub_item.set_current'),
                 admin_current_item_path(sub_item),
-                method: :patch, remote: true, class: 'btn primary')
+                method: :patch, remote: true, class: 'btn btn-primary')
     when 'current'
       button_to(t('model.sub_item.close'),
                 admin_current_item_path(sub_item),
-                method: :delete, remote: true, class: 'btn danger')
+                method: :delete, remote: true, class: 'btn btn-danger')
     when 'closed'
       button_to(t('model.sub_item.reopen'),
                 admin_current_item_path(sub_item),
-                method: :patch, remote: true, class: 'btn secondary')
+                method: :patch, remote: true, class: 'btn btn-secondary')
     end
   end
 
@@ -54,8 +54,8 @@ module ItemsHelper
   end
 
   def item_badge(item)
-    classes = 'badge badge-pill text-1'
-    classes += ' badge-primary' if item.status == :open
+    classes = 'badge badge-pill text-1 my-auto'
+    classes += ' badge-primary' if item.status == :current
     classes += ' badge-info' if item.status == :future
     classes += ' badge-light' if item.status == :closed
     content_tag(:span, item_status(item.status), class: classes)

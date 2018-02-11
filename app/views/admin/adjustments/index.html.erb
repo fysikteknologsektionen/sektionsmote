@@ -9,7 +9,7 @@
   <hr />
   <% if can_administrate? :manage, :vote_user %>
     <%= link_to t('.manage_attendance_list'), admin_attendances_path,
-                class: 'btn primary' %>
+                class: 'btn btn-primary' %>
   <% end %>
 </div>
 
@@ -21,20 +21,12 @@
   <%= simple_form_for(:search, url: card_admin_search_path, remote: true) do |f| %>
     <%= f.input(:card_number, required: false, autofocus: true,
                 label: User.human_attribute_name(:card_number),
-                input_html: {data: {mask: '9999-9999-9999-9999'},
-                             autocomplete: 'off'}) %>
+                input_html: { data: { mask: '9999-9999-9999-9999' },
+                             autocomplete: 'off', id: 'search-card' }) %>
   <% end %>
 
-  <p id=adjustment-status>
-  </p>
-
-  <div class="panel panel-main">
-    <table class="table admin-grid">
-      <thead id="adjustment-thead">
-      </thead>
-      <tbody id="adjustment-tbody">
-      </tbody>
-    </table>
+  <div id="vote-users-table">
+    <%= render('/admin/vote_users/table') %>
   </div>
 
   <hr>

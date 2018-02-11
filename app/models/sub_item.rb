@@ -3,8 +3,8 @@
 class SubItem < ApplicationRecord
   acts_as_paranoid
   acts_as_list(scope: [:item_id, deleted_at: nil])
-  belongs_to(:item, inverse_of: :sub_items)
-  has_many(:votes, dependent: :destroy)
+  belongs_to(:item, -> { with_deleted }, inverse_of: :sub_items)
+  has_many(:votes, -> { position }, dependent: :destroy)
   has_many_attached(:documents)
 
   validates(:title, presence: true)

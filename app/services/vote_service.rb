@@ -21,23 +21,32 @@ module VoteService
   end
 
   def self.attends(user)
-    return false unless SubItem.current.present?
+    add_user_error(user, 'attend_no_item') if SubItem.current.nil?
+    return false if user.errors[:base].any?
     User.transaction do
       user.update!(presence: true)
+      set_votecode(user) if user.votecode.blank?
       Adjustment.create!(user: user, sub_item: SubItem.current, presence: true)
     end
-  rescue StandardError
+  rescue StandardError => e
     false
   end
 
   def self.unattends(user)
-    return false if Vote.current.present? || SubItem.current.nil?
+    add_user_error(user, 'unattend_vote_current') if Vote.current.present?
+    add_user_error(user, 'unattend_no_item') if SubItem.current.nil?
+    return false if user.errors[:base].any?
     User.transaction do
       user.update!(presence: false)
       Adjustment.create!(user: user, sub_item: SubItem.current, presence: false)
     end
-  rescue StandardError
+  rescue StandardError => e
     false
+  end
+
+  def self.add_user_error(user, key)
+    return if user.nil?
+    user.errors.add(:base, I18n.t("model.user.errors.#{key}"))
   end
 
   def self.unattend_all
@@ -45,7 +54,8 @@ module VoteService
     User.transaction do
       User.present.each do |user|
         user.update!(presence: false)
-        Adjustment.create!(user: user, sub_item: SubItem.current,
+        Adjustment.create!(user: user,
+                           sub_item: SubItem.current,
                            presence: false)
       end
     end
