@@ -25,6 +25,7 @@ gem 'paranoia', '~> 2.4'
 gem 'pg'
 gem 'puma'
 gem 'redcarpet'
+gem 'roadie-rails'
 gem 'rollbar'
 gem 'sass-rails'
 gem 'select2-rails'
@@ -36,10 +37,8 @@ gem 'uglifier'
 group :development, :test do
   gem 'better_errors'
   gem 'bullet'
-  gem 'capybara'
   gem 'dotenv-rails'
   gem 'factory_bot_rails'
-  gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails'
 end
@@ -51,5 +50,6 @@ group :development do
 end
 
 group :test do
+  gem 'capybara'
   gem 'selenium-webdriver'
 end
