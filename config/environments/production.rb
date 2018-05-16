@@ -102,7 +102,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.smtp_settings = {
-    address: 'smtp-relay.gmail.com',
+    address: 'smtp.gmail.com',
     port: '587',
     domain: 'ftek.se',
     authentication: 'plain',
