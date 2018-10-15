@@ -11,7 +11,7 @@ class VotePost < ApplicationRecord
 
   attr_accessor :vote_option_ids, :votecode
 
-  validates :votecode, presence: true
+  #validates :votecode, presence: true
   validates :user_id, uniqueness: { scope: :vote_id,
                                     message: I18n.t('model.vote_post.already_voted') }
   validate :vote_open, :user_details, :option_details
@@ -59,7 +59,7 @@ class VotePost < ApplicationRecord
   private
 
   def user_details
-    return if User.exists?(id: user_id, votecode: votecode, presence: true)
+    return if User.exists?(id: user_id, presence: true)
     errors.add(:votecode, I18n.t('model.vote_post.bad_votecode_or_presence'))
   end
 
