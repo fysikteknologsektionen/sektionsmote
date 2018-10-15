@@ -20,10 +20,6 @@
       <td><%= @user.to_s %></td>
     </tr>
     <tr>
-      <td><%= User.human_attribute_name(:votecode) %></td>
-      <td><%= @user.votecode %><br></td>
-    </tr>
-    <tr>
       <td><%= User.human_attribute_name(:presence) %></td>
       <td><%= presence_string(@user.presence) %><br></td>
     </tr>
