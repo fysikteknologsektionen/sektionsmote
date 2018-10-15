@@ -4,7 +4,7 @@ module VoteService
   def self.user_vote(post)
     VotePost.transaction do
       if post.vote_option_ids.present?
-        post.trim_votecode
+        #post.trim_votecode
         post.selected = post.vote_option_ids.length
         ret = VoteOption.increment_counter(:count, post.vote_option_ids)
         unless ret == post.vote_option_ids.length
@@ -64,7 +64,7 @@ module VoteService
   def self.set_votecode(user)
     votecode = votecode_generator
     user.update!(votecode: votecode)
-    VoteMailer.votecode(user).deliver_now
+    #VoteMailer.votecode(user).deliver_now
   rescue StandardError
     false
   end
