@@ -9,7 +9,6 @@
       <th><%= User.human_attribute_name(:name)%></th>
       <th><%= User.human_attribute_name(:card_number)%></th>
       <th><%= t('.change_state') %></th>
-      <th><%= t('.reset_votecode') %></th>
     </tr>
   </thead>
   <tbody>
@@ -18,11 +17,6 @@
         <td class="name"><%= link_to admin_print_user(user), admin_vote_user_path(user) %></td>
         <td><%= user.card_number %></td>
         <td class="adjust"><%= vote_user_state_link(user) %></td>
-        <td class="votecode-reset">
-          <%= link_to(t('.reset'), admin_votecode_path(user),
-                      method: :patch, remote: true,
-                      data: { confirm: t('.confirm_reset') }) %>
-        </td>
       </tr>
     <% end %>
   </tbody>
