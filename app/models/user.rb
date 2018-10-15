@@ -19,7 +19,7 @@ class User < ApplicationRecord
                                     message: I18n.t('model.user.card_number_format'),
                                     allow_blank: true }
 
-  validate :presence_require_confirmation, :votecode_require_confirmation
+  validate :presence_require_confirmation#, :votecode_require_confirmation
 
   enum(role: { user: 0, adjuster: 1, secretary: 2, chairman: 3, admin: 4 })
 
@@ -99,8 +99,8 @@ class User < ApplicationRecord
     errors.add(:presence, I18n.t('model.user.errors.presence'))
   end
 
-  def votecode_require_confirmation
-    return unless !confirmed? && votecode_changed?(from: nil)
-    errors.add(:votecode, I18n.t('model.user.errors.votecode'))
-  end
+  #def votecode_require_confirmation
+  #  return unless !confirmed? && votecode_changed?(from: nil)
+  #  errors.add(:votecode, I18n.t('model.user.errors.votecode'))
+  #end
 end
