@@ -3,15 +3,15 @@
 source 'https://rubygems.org'
 
 # Do not forget to update in .ruby-version and .circleci/config.yml
-ruby '2.5.1'
+ruby '2.5.3'
 
 gem 'rails', '~> 5.2'
 gem 'coffee-rails'
 
 gem 'acts_as_list', '~> 0.9'
-gem 'aws-sdk-s3', '~> 1.10'
+gem 'aws-sdk-s3', '~> 1.17'
 gem 'bootsnap'
-gem 'bootstrap', '~> 4.1.1'
+gem 'bootstrap', '~> 4.1.3'
 gem 'cancancan'
 gem 'cocoon'
 gem 'cookies_eu'
