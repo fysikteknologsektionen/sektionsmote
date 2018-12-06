@@ -18,19 +18,24 @@ function adjustKey(event) {
 }
 
 function sendAdjustStatus(event) {
-  if (document.getElementById('error-display').hasChildNodes()) {
-    return; // Do nothing if an error is present
-  }
-  clearTimeout(statusWindow.resetTimer);
-  var adjustButton = event.target;
-  var adjustType = !(adjustButton.getAttribute('data-method') === 'delete');
-  adjustButton.setAttribute('data-method', adjustType ? 'delete' : 'patch');
-  adjustButton.textContent = adjustType ? 'Justera ut' : 'Justera in';
-  var message = (adjustType ? '✔️ ': '❌ ') + $('#vote-user h3').text().trim();
-  statusWindow.document.getElementById('message').textContent = message;
-  statusWindow.resetTimer = setTimeout(function(){
-    statusWindow.document.getElementById('message').textContent = 'Väntar på kort...';
-  }, 5000);
+  // Wait for UI to update until data is fetched
+  setTimeout(function(){
+
+    if (document.getElementById('error-display').hasChildNodes()) {
+      return; // Do nothing if an error is present
+    }
+    clearTimeout(statusWindow.resetTimer);
+    var adjustButton = event.target;
+    var adjustType = !(adjustButton.getAttribute('data-method') === 'delete');
+    adjustButton.setAttribute('data-method', adjustType ? 'delete' : 'patch');
+    adjustButton.textContent = adjustType ? 'Justera ut' : 'Justera in';
+    var message = (adjustType ? '✔️ ': '❌ ') + $('#vote-user h3').text().trim();
+    statusWindow.document.getElementById('message').textContent = message;
+    statusWindow.resetTimer = setTimeout(function(){
+      statusWindow.document.getElementById('message').textContent = 'Väntar på kort...';
+    }, 5000);
+
+  }, 100);
 }
 
 function setupShortcuts() {
