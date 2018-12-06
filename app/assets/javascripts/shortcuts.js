@@ -19,11 +19,11 @@ function adjustKey(event) {
 
 function autoAdjustOnSearch(event) {
   clearTimeout(statusWindow.resetTimer);
-  let adjustButton = event.target;
-  let adjustType = !(adjustButton.getAttribute('data-method') === 'delete');
+  var adjustButton = event.target;
+  var adjustType = !(adjustButton.getAttribute('data-method') === 'delete');
   adjustButton.setAttribute('data-method', adjustType ? 'delete' : 'patch');
   adjustButton.textContent = adjustType ? 'Justera ut' : 'Justera in';
-  let message = (adjustType ? '✔️ ': '❌ ') + $('#vote-user h3').text().trim();
+  var message = (adjustType ? '✔️ ': '❌ ') + $('#vote-user h3').text().trim();
   statusWindow.document.getElementById('message').textContent = message;
   statusWindow.resetTimer = setTimeout(function(){
     statusWindow.document.getElementById('message').textContent = 'Väntar på kort...';
@@ -38,7 +38,7 @@ function setupShortcuts() {
 function setupStatusWindow() {
   if (document.getElementById('vote-user')) {
     window.statusWindow = window.open("about:blank", "Status",'menubar=no,toolbar=no,location=no,personalbar=no,status=no');
-    let html = '<html><head><title>Status</title><style>body{margin:0;}p{font-size: 8rem;width: 100vw;height: 100vh;display: table-cell;text-align: center;vertical-align: middle;}</style></head><body><p id="message">';
+    var html = '<html><head><title>Status</title><style>body{margin:0;}p{font-size: 8rem;width: 100vw;height: 100vh;display: table-cell;text-align: center;vertical-align: middle;}</style></head><body><p id="message">';
     html += 'Väntar på kort...';
     html += '</p></body></html>';
     statusWindow.document.write(html);
