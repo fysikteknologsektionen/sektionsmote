@@ -28,7 +28,8 @@ function sendAdjustStatus(event) {
     statusWindow.checkTimer = setTimeout(function(){
       if (document.getElementById('error-display').hasChildNodes()) {
         statusWindow.document.getElementById('message').textContent = '⚠️ Error!';
-        setTimeout(function(){alert(document.getElementById('error-display').textContent);location.reload();},100);
+        clearTimeout(statusWindow.resetTimer);
+        setTimeout(function(){location.reload();},3000);
       } else {
         statusWindow.document.getElementById('message').textContent = (adjustType ? '✔️ ': '❌ ') + $('#vote-user h3').text().trim();
         adjustButton.setAttribute('data-method', adjustType ? 'delete' : 'patch');
