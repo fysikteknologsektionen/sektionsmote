@@ -5,9 +5,10 @@ var statusDisplay = document.getElementById('status-display');
   statusDisplay.classList.replace('d-flex', 'd-none');
   statusDisplay.innerHTML = "";
   var link = document.getElementById('adjust');
-  link.addEventListener('click', autoAdjustOnSearch, true);
+  link.addEventListener('click', sendAdjustStatus, true);
   link.click();
   document.getElementById('search-card').focus();
+  document.getElementById('search-card').value = '';
 <% else %>
   user.innerHTML = "";
   statusDisplay.classList.replace('d-none', 'd-flex');

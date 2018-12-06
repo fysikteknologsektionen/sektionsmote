@@ -17,7 +17,10 @@ function adjustKey(event) {
   focusField(event, 'a', document.getElementById('adjust'))
 }
 
-function autoAdjustOnSearch(event) {
+function sendAdjustStatus(event) {
+  if (document.getElementById('error-display').hasChildNodes()) {
+    return; // Do nothing if an error is present
+  }
   clearTimeout(statusWindow.resetTimer);
   var adjustButton = event.target;
   var adjustType = !(adjustButton.getAttribute('data-method') === 'delete');
