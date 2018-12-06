@@ -1,5 +1,5 @@
 function focusField(event, key, field) {
-  const tag = event.target.tagName;
+  var tag = event.target.tagName;
   if (field === null || event.defaultPrevented ||
       event.key !== key || tag === 'INPUT' || tag === 'TEXTAREA') {
     return; // Do nothing if the event was already processed or key was not s
