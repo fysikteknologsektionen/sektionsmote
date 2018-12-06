@@ -24,19 +24,19 @@ function sendAdjustStatus(event) {
     clearTimeout(statusWindow.resetTimer);
     var adjustButton = event.target;
     var adjustType = !(adjustButton.getAttribute('data-method') === 'delete');
-    var message = (adjustType ? '✔️ ': '❌ ') + $('#vote-user h3').text().trim();
-    statusWindow.document.getElementById('message').textContent = message;
+    statusWindow.document.getElementById('message').textContent = '⏳';
     statusWindow.checkTimer = setTimeout(function(){
       if (document.getElementById('error-display').hasChildNodes()) {
         statusWindow.document.getElementById('message').textContent = '⚠️ Error!';
         setTimeout(function(){alert(document.getElementById('error-display').textContent);location.reload();},100);
       } else {
+        statusWindow.document.getElementById('message').textContent = (adjustType ? '✔️ ': '❌ ') + $('#vote-user h3').text().trim();
         adjustButton.setAttribute('data-method', adjustType ? 'delete' : 'patch');
         adjustButton.textContent = adjustType ? 'Justera ut' : 'Justera in';
       }
     }, 1000);
     statusWindow.resetTimer = setTimeout(function(){
-      statusWindow.document.getElementById('message').textContent = 'Väntar på kort...';
+      statusWindow.document.getElementById('message').textContent = 'Dra ditt kårkort...';
     }, 5000);
 
   }, 100);
@@ -51,7 +51,7 @@ function setupStatusWindow() {
   if (document.getElementById('vote-user')) {
     window.statusWindow = window.open("about:blank", "Status",'menubar=no,toolbar=no,location=no,personalbar=no,status=no');
     var html = '<html><head><title>Status</title><style>body{margin:0;}p{font-size: 8rem;width: 100vw;height: 100vh;display: table-cell;text-align: center;vertical-align: middle;}</style></head><body><p id="message">';
-    html += 'Väntar på kort...';
+    html += 'Dra ditt kårkort...';
     html += '</p></body></html>';
     statusWindow.document.write(html);
     statusWindow.document.close();
