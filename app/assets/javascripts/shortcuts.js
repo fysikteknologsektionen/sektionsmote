@@ -21,16 +21,20 @@ function sendAdjustStatus(event) {
   // Wait for UI to update until data is fetched
   setTimeout(function(){
 
-    if (document.getElementById('error-display').hasChildNodes()) {
-      return; // Do nothing if an error is present
-    }
     clearTimeout(statusWindow.resetTimer);
     var adjustButton = event.target;
     var adjustType = !(adjustButton.getAttribute('data-method') === 'delete');
-    adjustButton.setAttribute('data-method', adjustType ? 'delete' : 'patch');
-    adjustButton.textContent = adjustType ? 'Justera ut' : 'Justera in';
     var message = (adjustType ? '✔️ ': '❌ ') + $('#vote-user h3').text().trim();
     statusWindow.document.getElementById('message').textContent = message;
+    statusWindow.checkTimer = setTimeout(function(){
+      if (document.getElementById('error-display').hasChildNodes()) {
+        statusWindow.document.getElementById('message').textContent = '⚠️ Error!';
+        setTimeout(function(){alert(document.getElementById('error-display').textContent);location.reload();},100);
+      } else {
+        adjustButton.setAttribute('data-method', adjustType ? 'delete' : 'patch');
+        adjustButton.textContent = adjustType ? 'Justera ut' : 'Justera in';
+      }
+    }, 1000);
     statusWindow.resetTimer = setTimeout(function(){
       statusWindow.document.getElementById('message').textContent = 'Väntar på kort...';
     }, 5000);
