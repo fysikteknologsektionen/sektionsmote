@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_02_09_100515) do
+ActiveRecord::Schema.define(version: 2020_06_20_204237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 2018_02_09_100515) do
     t.string "email", limit: 255, default: "", null: false
     t.string "firstname", limit: 255, default: "", null: false
     t.string "lastname", limit: 255, default: "", null: false
-    t.string "encrypted_password", limit: 255, default: "", null: false
+    t.string "encrypted_password", limit: 255, default: ""
     t.string "reset_password_token", limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

@@ -66,8 +66,22 @@ Rails.application.configure do
   end
 
   PUBLIC_URL = 'localhost:3000'
+  SCHEME = 'http'
   config.action_mailer.default_url_options = { host: PUBLIC_URL }
-  config.action_mailer.asset_host = "http://#{PUBLIC_URL}"
+  config.action_mailer.asset_host = "#{SCHEME}://#{PUBLIC_URL}"
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { address: '127.0.0.1', port: 1025 }
+
+  config.x.saml_configure = Proc.new do |settings|
+    # assertion_consumer_service_url is required starting with ruby-saml 1.4.3: https://github.com/onelogin/ruby-saml#updating-from-142-to-143
+    settings.assertion_consumer_service_url     = "#{SCHEME}://#{PUBLIC_URL}/users/saml/auth"
+    settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+    settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"
+    settings.issuer                             = "#{SCHEME}://#{PUBLIC_URL}/users/saml/metadata"
+    settings.authn_context                      = ""
+    settings.idp_slo_target_url                 = "https://capriza.github.io/samling/samling.html"
+    settings.idp_sso_target_url                 = "https://capriza.github.io/samling/samling.html"
+    settings.idp_cert_fingerprint               = "B7:11:A4:22:A0:57:9D:A6:30:06:3C:BF:AC:44:8F:90:BE:5A:E2:3F"
+    settings.idp_cert_fingerprint_algorithm     = "http://www.w3.org/2000/09/xmldsig#sha1"
+ end
 end
