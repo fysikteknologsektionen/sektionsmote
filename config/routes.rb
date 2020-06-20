@@ -6,22 +6,16 @@ Rails.application.routes.draw do
   get :about, controller: :static_pages, path: :om
   get :terms, controller: :static_pages, path: :villkor
 
-  devise_for :users, skip: [:sessions]
+  devise_for :users, skip: [:sessions, :registrations, :passwords, :confirmations]
   devise_scope :user do
-    get 'logga-in', to: 'devise/sessions#new', as: :new_user_session
-    post 'logga-in', to: 'devise/sessions#create', as: :user_session
-    delete 'logga-ut', to: 'devise/sessions#destroy', as: :destroy_user_session
+    get 'logga-in', controller: 'saml_sessions', to: :new_user_session
+    delete 'logga-ut', controller: 'saml_sessions', to: :destroy_user_session
   end
 
   # Scope to change urls to swedish
   scope path_names: { new: 'ny', edit: 'redigera' } do
     resource :message, path: :kontakt, only: %i[show create]
-    resource :user, path: :anvandare, only: %i[show update] do
-      get :account, path: :konto
-      patch :account, path: :konto, action: :update_account
-      get :password, path: :losenord
-      patch :password, path: :losenord, action: :update_password
-    end
+    resource :user, path: :anvandare, only: %i[show update]
 
     resources :items, path: :dagordning, only: %i[index show]
     resources :votes, path: :voteringar, only: :index do

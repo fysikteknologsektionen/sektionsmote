@@ -289,7 +289,7 @@ Devise.setup do |config|
   # other Devise modules or libraries. Set the saml_route_helper_prefix to a string that will
   # be appended to the named route.
   # If saml_route_helper_prefix = 'saml' then the new_user_session route becomes new_saml_user_session
-  config.saml_route_helper_prefix = 'saml'
+  # config.saml_route_helper_prefix = 'saml'
 
   # You can add allowance for clock drift between the sp and idp.
   # This is a time in seconds.
