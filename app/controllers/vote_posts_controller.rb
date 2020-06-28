@@ -30,6 +30,10 @@ class VotePostsController < ApplicationController
   private
 
   def vote_post_params
-    params.require(:vote_post).permit(:id, :votecode, vote_option_ids: [])
+    if params.has_key?(:vote_post)
+      params.require(:vote_post).permit(:id, :votecode, vote_option_ids: [])
+    else
+      {}
+    end
   end
 end

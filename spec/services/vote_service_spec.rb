@@ -27,31 +27,8 @@ RSpec.describe VoteService do
       expect(vote_post.selected).to eq(1)
     end
 
-    it 'votes and trims votecode' do
-      user = create(:user, presence: true, votecode: 'abcd123')
-      sub_item = create(:sub_item, status: :current)
-      vote = create(:vote, :with_options, status: :open,
-                                          choices: 1,
-                                          sub_item: sub_item)
-      vote_option = vote.vote_options.first
-
-      vote_post = VotePost.new(user: user, vote: vote, votecode: '   abcd123')
-
-      vote_post.vote_option_ids = [vote_option.id]
-
-      # Wrong format on vote_code
-      expect(vote_post).to be_invalid
-      result = false
-
-      expect do
-        result = VoteService.user_vote(vote_post)
-        vote_option.reload
-      end.to change(vote_option, :count).by(1)
-
-      expect(result).to be_truthy
-      vote_post.reload
-      expect(vote_post.selected).to eq(1)
-    end
+    # ftek: 'votes and trims votecode' not relevant since votecodes are
+    # not used in our fork
 
     it 'votes multiple' do
       user = create(:user, presence: true, votecode: 'abcd123')
@@ -241,15 +218,10 @@ RSpec.describe VoteService do
       expect(VoteService.set_votecode(nil)).to be_falsey
     end
 
-    it 'does not work if user is not confirmed' do
-      user = create(:user, :unconfirmed)
-
-      result = VoteService.set_votecode(user)
-      user.reload
-
-      expect(result).to be_falsey
-      expect(user.votecode).to be_blank
-    end
+    # ftek: 'does not work if user is not confirmed' not applicable
+    # since we do not use votecodes (and the falsey return occurs
+    # when failing to mail an unconfirmed email --- but this code
+    # path is disabled in our fork)
   end
 
   describe 'votecode generator' do

@@ -34,14 +34,14 @@ RSpec.describe User, type: :model do
   end
 
   describe 'validate email as cid@student.chalmers.se' do
-    it 'allows student email Stil-ID' do
+    it 'allows student email CID' do
       user = User.new(email: 'cid@student.chalmers.se')
       user.valid?
       expect(user.errors[:email]).to be_empty
     end
 
-    it 'allows student email Lucat-ID' do
-      user = User.new(email: 'hi6122al-x@student.lu.se')
+    it 'allows faculty email CID' do
+      user = User.new(email: 'cid@chalmers.se')
       user.valid?
       expect(user.errors[:email]).to be_empty
     end

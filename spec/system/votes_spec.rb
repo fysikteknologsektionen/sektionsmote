@@ -6,7 +6,7 @@ RSpec.describe 'votes' do
   it 'manages to create new vote_post', js: true do
     sub_item = create(:sub_item, status: :current)
     vote = create(:vote, :with_options, sub_item: sub_item)
-    user = create(:user, presence: true, votecode: 'abcd123')
+    user = create(:user, presence: true)
     vote.update!(status: :open)
     LoginPage.new.visit_page.login(user)
 
@@ -14,7 +14,7 @@ RSpec.describe 'votes' do
 
     first(:linkhref, vote_vote_posts_path(vote)).click
 
-    fill_in('vote_post[votecode]', with: 'abcd123')
+    #fill_in('vote_post[votecode]', with: 'abcd123')
     select(vote.vote_options.first, from: 'vote_post[vote_option_ids][]')
 
     accept_confirm do
@@ -28,7 +28,7 @@ RSpec.describe 'votes' do
   it 'manages to create new blank vote_post', js: true do
     sub_item = create(:sub_item, status: :current)
     vote = create(:vote, :with_options, sub_item: sub_item)
-    user = create(:user, presence: true, votecode: 'abcd123')
+    user = create(:user, presence: true)
     vote.update!(status: :open)
     LoginPage.new.visit_page.login(user)
 
@@ -36,7 +36,7 @@ RSpec.describe 'votes' do
 
     first(:linkhref, vote_vote_posts_path(vote)).click
 
-    fill_in('vote_post[votecode]', with: 'abcd123')
+    #fill_in('vote_post[votecode]', with: 'abcd123')
 
     accept_confirm do
       find('#vote_post_submit').click

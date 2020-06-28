@@ -17,28 +17,23 @@ RSpec.describe VotePost, type: :model do
       expect(new_vote_post.errors[:user_id]).to include(t('model.vote_post.already_voted'))
     end
 
-    it 'has valid votecode and presence' do
-      user = create(:user, votecode: 'abcd123', presence: true)
-      vote_post = build(:vote_post, user: user, votecode: user.votecode)
+    it 'is present' do
+      user = create(:user, presence: true)
+      vote_post = build(:vote_post, user: user)
       vote_post.valid?
       expect(vote_post.errors[:votecode]).to_not \
         include(I18n.t('model.vote_post.bad_votecode_or_presence'))
     end
 
-    it 'fails if user has invalid votecode but is present' do
-      user = create(:user, votecode: 'abcd123', presence: true)
-      vote_post = build(:vote_post, user: user, votecode: 'something_else')
+    # ftek: 'fails if user has invalid votecode but is present' not
+    # applicable since votecodes are not used in our fork
+
+    it 'is not present' do
+      user = create(:user, presence: false)
+      vote = create(:vote, status: :open,
+                           sub_item: create(:sub_item, status: :current))
+      vote_post = build(:vote_post, user: user, vote: vote)
       vote_post.valid?
-
-      expect(vote_post.errors[:votecode]).to \
-        include(I18n.t('model.vote_post.bad_votecode_or_presence'))
-    end
-
-    it 'has valid votecode but is not present' do
-      user = create(:user, votecode: 'abcd123', presence: false)
-      vote_post = build(:vote_post, user: user, votecode: 'abcd123')
-      vote_post.valid?
-
       expect(vote_post.errors[:votecode]).to \
         include(I18n.t('model.vote_post.bad_votecode_or_presence'))
     end
