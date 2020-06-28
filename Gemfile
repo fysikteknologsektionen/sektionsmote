@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 
 # Do not forget to update in .ruby-version and .circleci/config.yml
-ruby '2.5.3'
+ruby '2.7.1'
 
 gem 'rails', '~> 5.2'
 gem 'coffee-rails'
