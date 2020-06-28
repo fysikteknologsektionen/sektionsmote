@@ -3,8 +3,8 @@
 FactoryBot.define do
   factory :vote do
     title
-    status :future
-    choices 1
+    status { :future }
+    choices { 1 }
     sub_item
 
     trait :with_options do
