@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 # Do not forget to update in .ruby-version and .circleci/config.yml
 ruby '2.7.1'
 
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 6.0'
 gem 'coffee-rails'
 
 gem 'acts_as_list', '~> 0.9'

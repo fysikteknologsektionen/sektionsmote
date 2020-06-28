@@ -7,7 +7,7 @@ module MarkdownHelper
   end
 
   def sanitize(input)
-    ActionView::Base.new.sanitize(input.html_safe) if input.present?
+    Rails::Html::SafeListSanitizer.new.sanitize(input).html_safe if input.present?
   end
 
   def markdown_renderer
