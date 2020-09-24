@@ -8,13 +8,18 @@
   <%= render('/application/admin_sidebar', current: :items) %>
   <hr />
   <%= link_to t('.new_item'), new_admin_item_path, class: 'btn btn-primary' %>
+  <hr />
+  <%= link_to t('.set_next_active'), admin_items_path, class: 'btn btn-primary mb-2', id: 'next-active-btn' %> <%# Kika på om detta kan göra utan redirect.... rel="nofollow" %>
+  <%= link_to t('.set_prev_active'), admin_items_path, class: 'btn btn-secondary mb-2', id: 'prev-active-btn' %>
+  <%= link_to t('.set_all_future'), admin_items_path, class: 'btn btn-warning mb-2', id: 'set-all-future-btn' %>
+  <%= link_to t('.set_all_closed'), admin_items_path, class: 'btn btn-warning mb-2', id: 'set-all-closed-btn' %>
+  
 </div>
 
-<div class="col-12 col-md-9" id="vote-status" data-position="adjustment-index">
+<div class="col-12 col-md-9">
+  <div  id="vote-status" data-position="adjustment-index">
   <%= render '/admin/votes/status', vote_status_view: @vote_status_view %>
-</div>
-
-<div class="col-12 col-md-9 offset-md-3">
+  </div>
   <table class="table table-striped table-bordered admin-grid">
     <thead>
       <tr>
@@ -43,4 +48,8 @@
       <% end %>
     </tbody>
   </table>
+</div>
+
+<div class="col-12 col-md-9 offset-md-3">
+  
 </div>
