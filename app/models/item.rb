@@ -18,7 +18,7 @@ class Item < ApplicationRecord
   validates(:title, presence: true)
   validate(:number_of_sub_items, on: :update)
 
-  scope(:position, -> { order(:position) })
+  scope(:position, -> { order("substring(position, '\\d+')::int NULLS FIRST, position") })
   scope(:not_closed, lambda do
     joins(:sub_items).includes(:sub_items).merge(SubItem.not_closed)
   end)
