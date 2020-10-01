@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :item do
     title
-    position { |n| n }
+    position
   end
 end

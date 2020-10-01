@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_02_09_100515) do
-
+ActiveRecord::Schema.define(version: 2020_10_01_095739) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -85,7 +84,7 @@ ActiveRecord::Schema.define(version: 2018_02_09_100515) do
     t.string "title", null: false
     t.integer "type", default: 0, null: false
     t.integer "multiplicity", default: 0, null: false
-    t.integer "position"
+    t.string "position"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

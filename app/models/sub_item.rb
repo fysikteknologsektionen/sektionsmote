@@ -31,7 +31,7 @@ class SubItem < ApplicationRecord
 
   def to_s
     if item.multiple?
-      "§#{item.position}.#{position} #{title}"
+      "§#{item.position}#{position_to_s} #{title}"
     else
       item.to_s
     end
@@ -39,7 +39,7 @@ class SubItem < ApplicationRecord
 
   def list
     if item.multiple?
-      str = "§#{item.position}.#{position}"
+      str = "§#{item.position}#{position_to_s}"
       str += I18n.t('model.item.deleted') if deleted?
       str
     else
@@ -51,115 +51,64 @@ class SubItem < ApplicationRecord
     "#{id}-#{title.parameterize}"
   end
 
-  def self.set_next_active
-    #Fixa så inte gå vidare vid öppen votering
-
-    sub_item = where(status: :current).take
-    
-    if sub_item # Kolla om en aktiv punkts finns
-      
-      #Kolla om öppen votering
-      item = Vote.where(status: :open).first
-      if !item.nil? && item.sub_item_id == id
-        errors.add(:status, I18n.t('model.sub_item.errors.vote_open'))
-        return 
-      end
-  
-      pItem = Item.where(id: sub_item.item_id).take #Hitta parent punkten
-
-      if pItem.multiplicity? # om den har underpunkter
-
-        nSubItemPos = sub_item.position + 1 #Näsa underpunktsindex
-        nSubItem = where(position: nSubItemPos, item_id: sub_item.item_id).take
-
-        if nSubItem #Kolla om nästa underpunkt existerar
-          where(status: :current).update_all(status: :closed)
-          where(item_id: sub_item.item_id,position: nSubItemPos, deleted_at: nil).update_all(status: :current)
-        else # Om den inte har någon underpunkt efter ex: 1.3 => 2.0
-          
-          nPos = pItem.position + 1
-          nItem = Item.where(position: nPos, deleted_at: nil).take
-          if nItem
-            where(status: :current).update_all(status: :closed)
-            where(item_id: nItem.id,position: 1, deleted_at: nil).update_all(status: :current)
-          else
-            #Todo: error
-
-          end
-        end
-      else #Om den inte har underpunkter
-        # Osäker på om denna del faktiskt används
-        nextPos = pItem.position + 1
-        nItem = Item.where(position: nextPos, deleted_at: nil).take
-        if nItem
-          nId = nItem.id
-          puts ("ID")
-          puts ("ID")
-          puts ("ID")
-          puts ("ID")
-          puts nId
-          where(status: :current).update_all(status: :closed)
-          where(item_id: nId, deleted_at: nil).update_all(status: :current)
-        else
-          #Todo: error
-        end
+  def next
+    if item.multiple?
+      item.sub_items.each_cons(2) do |sub, sub_next|
+        return sub_next if id === sub.id
       end
     end
+    return item.next&.sub_items&.first
+  end
+  
+  def prev
+    if item.multiple?
+      item.sub_items.each_cons(2) do |sub, sub_next|
+        return sub if id === sub_next.id
+      end
+    end
+    return item.prev&.sub_items&.last
+  end
+
+  def self.set_next_active
+    cur = self.current
+    
+    # require active item
+    return unless cur
+      
+    # check no vote open
+    if Vote.current&.sub_item_id === cur.id
+      errors.add(:status, I18n.t('model.sub_item.errors.vote_open'))
+      return 
+    end
+
+    # close current
+    where(status: :current).update_all(status: :closed)
+  
+    new = cur.next
+    return if new.nil?
+
+    where(id: new.id).update_all(status: :current)
   end
 
   def self.set_prev_active
-    sub_item = where(status: :current).take
+    cur = self.current
     
-    if sub_item # Kolla om en aktiv punkts finns
-      
-      #Kolla om öppen votering
-      item = Vote.where(status: :open).first
-      if !item.nil? && item.sub_item_id == id
-        errors.add(:status, I18n.t('model.sub_item.errors.vote_open'))
-        return 
-      end
+    # require active item
+    return unless cur
 
-      pItem = Item.where(id: sub_item.item_id).take #Hitta parent punkten
-
-      if pItem.multiplicity? # om den har underpunkter
-
-        
-        nSubItemPos = sub_item.position - 1 #föregående underpunktsindex
-        
-
-        if nSubItemPos > 0 #Kolla om föregående underpunkt existerar
-          where(status: :current).update_all(status: :future)
-          where(item_id: sub_item.item_id, position: nSubItemPos, deleted_at: nil).update_all(status: :current)
-
-        else # Om den inte har någon underpunkt före ex: 2.1 => 1.x
-          prevPPos = pItem.position - 1
-          prevPItem = Item.where(position: prevPPos).take
-
-          if prevPItem # om föregående punkt existerar
-            if prevPItem.multiplicity?
-              where(status: :current).update_all(status: :future)
-              lastSubItem = where(item_id: prevPItem.id, deleted_at: nil).last
-              where(item_id: lastSubItem.item_id, position: lastSubItem.position, deleted_at: nil).update_all(status: :current)
-            else
-              where(status: :current).update_all(status: :future)
-              where(item_id: prevPItem.id, deleted_at: nil).update_all(status: :current)
-            end
-          else # Om den inte existerar
-            #Todo: error
-          end
-        end
-      else #Om den inte har underpunkter
-        prevPos = pItem.position - 1
-        nItem = Item.where(position: nextPos, deleted_at: nil).take
-        if nItem
-          nId = nItem.id
-          where(status: :current).update_all(status: :future)
-          where(item_id: nId, deleted_at: nil).update_all(status: :current)
-        else
-          #Todo: error
-        end
-      end
+    # check no vote open
+    if Vote.current&.sub_item_id === cur.id
+      errors.add(:status, I18n.t('model.sub_item.errors.vote_open'))
+      return 
     end
+
+    # close current
+    where(status: :current).update_all(status: :future)
+  
+    new = cur.prev
+    return if new.nil?
+
+    where(id: new.id).update_all(status: :current)
   end
 
   def self.set_all_future
@@ -184,4 +133,11 @@ class SubItem < ApplicationRecord
     errors.add(:status, I18n.t('model.sub_item.errors.vote_open'))
   end
 
+  def position_to_s
+    if item.position.to_i.to_s === item.position
+      position.alph
+    else
+      "." + position.roman
+    end
+  end
 end
