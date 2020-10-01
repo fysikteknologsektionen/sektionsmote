@@ -6,7 +6,7 @@ class Item < ApplicationRecord
   self.inheritance_column = :_type_disabled
 
   acts_as_paranoid
-  acts_as_list(scope: [deleted_at: nil])
+  #acts_as_list(scope: [deleted_at: nil])
 
   has_many(:sub_items, -> { position }, dependent: :destroy,
                                         inverse_of: :item)
@@ -50,6 +50,21 @@ class Item < ApplicationRecord
   def to_param
     "#{id}-#{title.try(:parameterize)}"
   end
+  
+  def next
+    Item.position.each_cons(2) do |item, item_next|
+      return item_next if position === item.position
+    end
+    return nil
+  end
+
+  def prev
+    Item.position.each_cons(2) do |item, item_next|
+      return item if position === item_next.position
+    end
+    return nil
+  end
+
 
   private
 
