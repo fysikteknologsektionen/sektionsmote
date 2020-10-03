@@ -3,6 +3,7 @@
 </div>
 
 <div class="col">
+  <%= render '/votes/start_page', vote_status: @start_page.vote_status %>
   <%= render '/users/confirm_information' %>
   <%= render(@start_page.news) if @start_page.news.present? %>
 </div>
