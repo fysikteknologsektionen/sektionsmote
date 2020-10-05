@@ -19,6 +19,8 @@ sv:
         multiple: Med underpunkter
         single: Enskild
       types:
+        formality: Formalia
         announcement: Meddelande
         decision: Beslut
+        report: Rapport
         election: Valärende

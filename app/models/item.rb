@@ -12,13 +12,13 @@ class Item < ApplicationRecord
                                         inverse_of: :item)
   has_many(:votes, through: :sub_items)
 
-  enum(type: { announcement: 0, decision: 5, election: 10 })
+  enum(type: { formality: -1, announcement: 0, report: 2, decision: 5, election: 10 })
   enum(multiplicity: { single: 0, multiple: 10 })
 
   validates(:title, presence: true)
   validate(:number_of_sub_items, on: :update)
 
-  scope(:position, -> { order("substring(position, '\\d+')::int NULLS FIRST, position") })
+  scope(:position, -> { order(Arel.sql("substring(position, '\\d+')::int NULLS FIRST, position")) })
   scope(:not_closed, lambda do
     joins(:sub_items).includes(:sub_items).merge(SubItem.not_closed)
   end)

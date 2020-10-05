@@ -21,7 +21,7 @@ class SubItem < ApplicationRecord
   enum(status: { current: -10, future: 0, closed: 10 })
   scope(:position, -> { order(:position) })
   scope(:full_order, lambda do
-    joins(:item).order('items.position ASC, sub_items.position ASC')
+    joins(:item).includes(:item).order(Arel.sql("substring(items.position, '\\d+')::int NULLS FIRST, items.position, sub_items.position"))
   end)
   scope(:not_closed, -> { where(status: %i[current future]) })
 

@@ -7,6 +7,7 @@ class StaticPagesController < ApplicationController
 
   def index
     @start_page = StartPage.new
+    @start_page.vote_status.vote_post = VotePost.where(vote: @start_page.vote_status.vote, user: current_user).first
   end
 
   def terms; end

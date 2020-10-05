@@ -19,8 +19,12 @@ module ItemsHelper
 
   def item_type_icon(type)
     case type
+    when 'formality'
+      'bookmark'
     when 'decision'
       'gavel'
+    when 'report'
+      'book'
     when 'election'
       'check'
     when 'announcement'
