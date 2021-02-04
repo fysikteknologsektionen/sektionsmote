@@ -55,7 +55,8 @@ RSpec.describe('Voting', type: :request) do
                                          xhr: true)
       end.to change(VotePost, :count).by(1)
 
-      expect(response).to redirect_to(item_path(sub_item.item))
+      #expect(response).to redirect_to(item_path(sub_item.item))
+      expect(response).to have_http_status(:success)
     end
 
     it 'allows blank votes' do
@@ -70,7 +71,8 @@ RSpec.describe('Voting', type: :request) do
                                          xhr: true)
       end.to change(VotePost, :count).by(1)
 
-      expect(response).to redirect_to(item_path(sub_item.item))
+      #expect(response).to redirect_to(item_path(sub_item.item))
+      expect(response).to have_http_status(:success)
     end
 
     # ftek: this now tests invalid ids instead of invalid votecode
