@@ -3,15 +3,15 @@
 source 'https://rubygems.org'
 
 # Do not forget to update in .ruby-version and .circleci/config.yml
-ruby '2.5.3'
+ruby '2.7.1'
 
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 6.0.3'
 gem 'coffee-rails'
 
 gem 'acts_as_list', '~> 0.9'
 gem 'aws-sdk-s3', '~> 1.17'
 gem 'bootsnap'
-gem 'bootstrap', '~> 4.1.3'
+gem 'bootstrap', '~> 4.5.0'
 gem 'cancancan'
 gem 'cocoon'
 gem 'cookies_eu'
@@ -27,7 +27,7 @@ gem 'puma'
 gem 'redcarpet'
 gem 'roadie-rails'
 gem 'rollbar'
-gem 'sass-rails'
+gem 'sassc-rails'
 gem 'select2-rails'
 gem 'simple_form'
 gem 'textacular', git: 'https://github.com/textacular/textacular',

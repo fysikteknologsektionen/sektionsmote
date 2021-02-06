@@ -24,30 +24,30 @@ RSpec.describe('User updates account information', as: :request) do
   describe 'updates account' do
     it 'correct current_password' do
       user = create(:user, password: '12345678',
-                           email: 'user1234@student.lu.se')
+                           email: 'user1234@student.chalmers.se')
       sign_in(user)
-      attributes = { user: { email: 'user1337@student.lu.se',
+      attributes = { user: { email: 'user1337@student.chalmers.se',
                              current_password: '12345678' } }
 
       patch(account_user_path, params: attributes)
       user.reload
 
       expect(response).to redirect_to(account_user_path)
-      expect(user.unconfirmed_email).to eq('user1337@student.lu.se')
+      expect(user.unconfirmed_email).to eq('user1337@student.chalmers.se')
     end
 
     it 'incorrect current_password' do
       user = create(:user, password: '12345678',
-                           email: 'user1234@student.lu.se')
+                           email: 'user1234@student.chalmers.se')
       sign_in(user)
-      attributes = { user: { email: 'user1337@student.lu.se',
+      attributes = { user: { email: 'user1337@student.chalmers.se',
                              current_password: 'wrong_wrong' } }
 
       patch(account_user_path, params: attributes)
       user.reload
 
       expect(response).to have_http_status(422)
-      expect(user.unconfirmed_email).to_not eq('user1337@student.lu.se')
+      expect(user.unconfirmed_email).to_not eq('user1337@student.chalmers.se')
     end
   end
 
