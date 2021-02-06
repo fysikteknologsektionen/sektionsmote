@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 
 # Do not forget to update in .ruby-version and .circleci/config.yml
-ruby '2.7.1'
+ruby '2.7.2'
 
 gem 'rails', '~> 6.0.3'
 gem 'coffee-rails'
@@ -34,6 +34,7 @@ gem 'textacular', git: 'https://github.com/textacular/textacular',
                   branch: 'master'
 gem 'turbolinks'
 gem 'uglifier'
+gem 'tzinfo-data'
 
 group :development, :test do
   gem 'better_errors'
