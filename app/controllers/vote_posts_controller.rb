@@ -17,7 +17,7 @@ class VotePostsController < ApplicationController
     @vote_post = @vote.vote_posts.build(vote_post_params)
     @vote_post.user = current_user
 
-    return_to = Rails.application.routes.recognize_path(request.referrer)
+    return_to = Rails.application.routes.recognize_path(:back)
     return_to = @vote.sub_item.item if return_to.nil?
 
     if VoteService.user_vote(@vote_post)
