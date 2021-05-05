@@ -32,4 +32,6 @@ sv:
       present: Injusterad
       short_error_not_present: Utjustering misslyckades
       short_error_present: Injustering misslyckades
+      all_not_present: Alla användare utjusterade
+      error_all_not_present: Misslyckades med att justera ut alla användare (finns det en aktiv dagordningspunkt?)
     votecode_error_short: Kunde inte nollställa
