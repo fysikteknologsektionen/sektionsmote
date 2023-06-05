@@ -1,0 +1,8 @@
+{
+	"name": "Sektionsmote",
+	"dockerComposeFile": "./docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/usr/src/app",
+	"forwardPorts": [3000],
+	"postStartCommand": "ruby ./bin/setup && bundle exec rails server -b 0.0.0.0"
+}

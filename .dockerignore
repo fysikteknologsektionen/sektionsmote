@@ -1,3 +1,9 @@
+.git/
+.circleci/
+.devcontainer/
+Dockerfile
+
+
 *.rbc
 *.sassc
 .DS_Store

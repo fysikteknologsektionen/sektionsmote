@@ -6,14 +6,15 @@ services:
       POSTGRES_USER: root
       RAILS_ENV: development
     volumes:
-      - ./.docker/volumes/database:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
     
 
   app:
     build:
-      context: .
+      context: ..
       dockerfile: Dockerfile
-    command: sh -c "ruby ./bin/setup && bundle exec rails server -b 0.0.0.0"
+      target: development
+    command: sleep infinity
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: root
@@ -25,3 +26,5 @@ services:
     depends_on:
       - db
     
+volumes:
+  db-data:
