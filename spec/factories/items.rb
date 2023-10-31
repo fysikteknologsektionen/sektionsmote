@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :item do
     title
-    position { |n| n }
+    sequence(:position) { |n| n.alph }
   end
 end

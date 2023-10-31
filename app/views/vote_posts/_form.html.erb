@@ -1,16 +1,20 @@
 <%= simple_form_for([vote, vote_post], remote: true) do |f| %>
-  <p><i><%= t('.max_choices', choices: vote.choices) %></i></p>
-  <% if vote_post.errors[:user_id].present? %>
-    <% vote_post.errors[:user_id].each do |error| %>
-      <span class="error">
-        <%= fa_icon('exclamation-circle') %>
-        <%= error.to_s %>
-      </span>
+  <% if vote.choices == 1 and vote.vote_options.size == 2 %>
+    <%= f.input :vote_option_ids, collection: vote.vote_options, as: :radio_buttons, label: false,
+      include_blank: false, include_hidden: false, input_html: { name: 'vote_post[vote_option_ids][]' }%>
+  <% else %>
+    <p><i><%= t('.max_choices', choices: vote.choices) %></i></p>
+    <% if vote_post.errors[:user_id].present? %>
+      <% vote_post.errors[:user_id].each do |error| %>
+        <span class="error">
+          <%= fa_icon('exclamation-circle') %>
+          <%= error.to_s %>
+        </span>
+      <% end %>
     <% end %>
+    <%= f.input :vote_option_ids, collection: vote.vote_options.order(:title), include_blank: false,
+      input_html: { class: 'select2-single', multiple: true }, include_hidden: false %>
   <% end %>
-
-  <%= f.input :vote_option_ids, collection: vote.vote_options.order(:title), include_blank: false,
-    input_html: { class: 'select2-single', multiple: true }, include_hidden: false %>
   <%= f.button :submit, t('.submit'), id: 'vote_post_submit',
-                                      data: { confirm: t('.confirm') } %>
+    data: { confirm: t('.confirm') } %>
 <% end %>

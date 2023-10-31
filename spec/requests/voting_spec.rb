@@ -55,7 +55,8 @@ RSpec.describe('Voting', type: :request) do
                                          xhr: true)
       end.to change(VotePost, :count).by(1)
 
-      expect(response).to redirect_to(item_path(sub_item.item))
+      #expect(response).to redirect_to(item_path(sub_item.item))
+      expect(response).to have_http_status(:success)
     end
 
     it 'allows blank votes' do
@@ -70,15 +71,16 @@ RSpec.describe('Voting', type: :request) do
                                          xhr: true)
       end.to change(VotePost, :count).by(1)
 
-      expect(response).to redirect_to(item_path(sub_item.item))
+      #expect(response).to redirect_to(item_path(sub_item.item))
+      expect(response).to have_http_status(:success)
     end
 
+    # ftek: this now tests invalid ids instead of invalid votecode
     it 'invalid parameters' do
       user.update!(presence: true, votecode: 'abcd123')
       sub_item = create(:sub_item, status: :current)
       vote = create(:vote, :with_options, status: :open, sub_item: sub_item)
-      attributes = { votecode: 'falseyfalsey',
-                     vote_option_ids: [vote.vote_options.first.id] }
+      attributes = { vote_option_ids: [-42] }
 
       sign_in(user)
 

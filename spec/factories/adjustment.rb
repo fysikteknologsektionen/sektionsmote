@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :adjustment do
     sub_item
     user
-    presence true
+    presence { true }
   end
 end

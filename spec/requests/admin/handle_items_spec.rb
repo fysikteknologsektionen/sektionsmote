@@ -11,7 +11,7 @@ RSpec.describe('Handle items', as: :request) do
 
   describe 'create' do
     it 'correct attributes' do
-      attributes = { title: 'Motioner', position: 10, type: :election }
+      attributes = { title: 'Motioner', position: '10', type: :election }
       sign_in(adjuster)
 
       get(new_admin_item_url)

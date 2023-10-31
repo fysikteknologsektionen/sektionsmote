@@ -47,13 +47,13 @@ sv:
         success: Voteringen uppdaterades.
   vote:
     add_option: Lägg till
-    already_voted: Du har redan deltagit i omröstningen
+    already_voted: Du har redan deltagit i voteringen
     cannot_reset: Voteringen är öppen och kan därmed inte nollställas
     deleted: " [RADERAD]"
     do_close: Stäng
     do_open: Öppna
     edit_vote: Redigera votering
-    is_closed: Omröstningen är stängd
+    is_closed: Voteringen är stängd
     made_closed: Stängdes
     made_open: Öppnades
     no_votes_open: Just nu finns det tyvärr ingen votering som är öppen.
@@ -73,5 +73,5 @@ sv:
     wrong_agenda: Voteringen kan enbart öppnas under den valda dagordningspunkten
   votes:
     index:
-      current: Aktuell omröstning
+      current: Aktuell votering
       title: Voteringar

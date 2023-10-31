@@ -1,0 +1,17 @@
+<% return unless signed_in? and vote_status.vote.present? and vote_status.vote.open? %>
+<div class="mb-4 pb-2">
+  <div class="headline">
+    <h3><%= t('votes.index.current') %></h3>
+  </div>
+
+  <div class="w-100">
+    <h5><%= vote_status.vote.title %></h5>
+    <% if not vote_status.vote_post.present? %>
+      <div id="<%= dom_id(vote_status.vote) %>-form">
+        <%= render('/vote_posts/form', vote: vote_status.vote, vote_post: VotePost.new) %>
+      </div>
+    <% else %>
+      <%= t('vote.already_voted') %>: <%= l(vote_status.vote_post.created_at) %>
+    <% end %>
+  </div>
+</div>

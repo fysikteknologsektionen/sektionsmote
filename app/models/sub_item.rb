@@ -21,7 +21,7 @@ class SubItem < ApplicationRecord
   enum(status: { current: -10, future: 0, closed: 10 })
   scope(:position, -> { order(:position) })
   scope(:full_order, lambda do
-    joins(:item).order('items.position ASC, sub_items.position ASC')
+    joins(:item).includes(:item).order(Arel.sql("substring(items.position, '\\d+')::int NULLS FIRST, items.position, sub_items.position"))
   end)
   scope(:not_closed, -> { where(status: %i[current future]) })
 
@@ -31,7 +31,7 @@ class SubItem < ApplicationRecord
 
   def to_s
     if item.multiple?
-      "§#{item.position}.#{position} #{title}"
+      "§#{item.position}#{position_to_s} #{title}"
     else
       item.to_s
     end
@@ -39,7 +39,7 @@ class SubItem < ApplicationRecord
 
   def list
     if item.multiple?
-      str = "§#{item.position}.#{position}"
+      str = "§#{item.position}#{position_to_s}"
       str += I18n.t('model.item.deleted') if deleted?
       str
     else
@@ -51,6 +51,73 @@ class SubItem < ApplicationRecord
     "#{id}-#{title.parameterize}"
   end
 
+  def next
+    if item.multiple?
+      item.sub_items.each_cons(2) do |sub, sub_next|
+        return sub_next if id === sub.id
+      end
+    end
+    return item.next&.sub_items&.first
+  end
+  
+  def prev
+    if item.multiple?
+      item.sub_items.each_cons(2) do |sub, sub_next|
+        return sub if id === sub_next.id
+      end
+    end
+    return item.prev&.sub_items&.last
+  end
+
+  def self.set_next_active
+    cur = self.current
+    
+    # require active item
+    return unless cur
+      
+    # check no vote open
+    if Vote.current&.sub_item_id === cur.id
+      errors.add(:status, I18n.t('model.sub_item.errors.vote_open'))
+      return 
+    end
+
+    # close current
+    where(status: :current).update_all(status: :closed)
+  
+    new = cur.next
+    return if new.nil?
+
+    where(id: new.id).update_all(status: :current)
+  end
+
+  def self.set_prev_active
+    cur = self.current
+    
+    # require active item
+    return unless cur
+
+    # check no vote open
+    if Vote.current&.sub_item_id === cur.id
+      errors.add(:status, I18n.t('model.sub_item.errors.vote_open'))
+      return 
+    end
+
+    # close current
+    where(status: :current).update_all(status: :future)
+  
+    new = cur.prev
+    return if new.nil?
+
+    where(id: new.id).update_all(status: :current)
+  end
+
+  def self.set_all_future
+    where(deleted_at:  nil).update_all(status: :future)
+  end
+
+  def self.set_all_closed
+    where(deleted_at: nil).update_all(status: :closed)
+  end
   private
 
   def number_of_sub_items
@@ -64,5 +131,13 @@ class SubItem < ApplicationRecord
                   !votes.current.blank?
 
     errors.add(:status, I18n.t('model.sub_item.errors.vote_open'))
+  end
+
+  def position_to_s
+    if item.position.to_i.to_s === item.position
+      position.alph
+    else
+      "." + position.roman
+    end
   end
 end

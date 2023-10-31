@@ -6,19 +6,19 @@ class Item < ApplicationRecord
   self.inheritance_column = :_type_disabled
 
   acts_as_paranoid
-  acts_as_list(scope: [deleted_at: nil])
+  #acts_as_list(scope: [deleted_at: nil])
 
   has_many(:sub_items, -> { position }, dependent: :destroy,
                                         inverse_of: :item)
   has_many(:votes, through: :sub_items)
 
-  enum(type: { announcement: 0, decision: 5, election: 10 })
+  enum(type: { formality: -1, announcement: 0, report: 2, decision: 5, election: 10 })
   enum(multiplicity: { single: 0, multiple: 10 })
 
   validates(:title, presence: true)
   validate(:number_of_sub_items, on: :update)
 
-  scope(:position, -> { order(:position) })
+  scope(:position, -> { order(Arel.sql("substring(position, '\\d+')::int NULLS FIRST, position")) })
   scope(:not_closed, lambda do
     joins(:sub_items).includes(:sub_items).merge(SubItem.not_closed)
   end)
@@ -50,6 +50,21 @@ class Item < ApplicationRecord
   def to_param
     "#{id}-#{title.try(:parameterize)}"
   end
+  
+  def next
+    Item.position.each_cons(2) do |item, item_next|
+      return item_next if position === item.position
+    end
+    return nil
+  end
+
+  def prev
+    Item.position.each_cons(2) do |item, item_next|
+      return item if position === item_next.position
+    end
+    return nil
+  end
+
 
   private
 

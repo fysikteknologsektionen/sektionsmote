@@ -17,8 +17,11 @@ class VotePostsController < ApplicationController
     @vote_post = @vote.vote_posts.build(vote_post_params)
     @vote_post.user = current_user
 
+    return_to = Rails.application.routes.recognize_path('/')
+    return_to = @vote.sub_item.item if return_to.nil?
+
     if VoteService.user_vote(@vote_post)
-      redirect_to(@vote.sub_item.item, notice: t('.success'))
+      redirect_to(return_to, notice: t('.success'))
     else
       render(:error, status: 422)
     end
@@ -27,6 +30,10 @@ class VotePostsController < ApplicationController
   private
 
   def vote_post_params
-    params.require(:vote_post).permit(:id, :votecode, vote_option_ids: [])
+    if params.has_key?(:vote_post)
+      params.require(:vote_post).permit(:id, :votecode, vote_option_ids: [])
+    else
+      {}
+    end
   end
 end

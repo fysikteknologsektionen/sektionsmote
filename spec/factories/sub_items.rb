@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :sub_item do
     item
     title
-    position { |n| n }
+    sequence(:position) { |n| n }
   end
 end

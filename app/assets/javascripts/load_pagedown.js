@@ -2,7 +2,7 @@ function pagedown() {
   $('textarea.wmd-input').each(function(i, input) {
     var attr, converter, editor, help;
     attr = $(input).attr('id').split('wmd-input')[1];
-    converter = new Markdown.Converter();
+    converter = new Markdown.getSanitizingConverter();
     Markdown.Extra.init(converter);
     help = {
       handler: function() {

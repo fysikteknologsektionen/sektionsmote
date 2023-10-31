@@ -29,7 +29,7 @@ Rails.application.configure do
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
-
+  
   # Store uploaded files on the local file system in a temporary directory
   config.active_storage.service = :test
 
@@ -51,3 +51,5 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: PUBLIC_URL }
   config.action_mailer.asset_host = "http://#{PUBLIC_URL}"
 end
+
+Rails.application.routes.default_url_options = Rails.application.config.action_mailer.default_url_options

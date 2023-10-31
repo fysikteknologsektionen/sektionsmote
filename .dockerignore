@@ -1,0 +1,47 @@
+.git/
+.circleci/
+.devcontainer/
+Dockerfile
+
+
+*.rbc
+*.sassc
+.DS_Store
+.sass-cache
+capybara-*.html
+coverage
+.rspec
+/log
+/tmp
+/db/*.sqlite3
+/public/system
+/public/uploads
+/public/documents
+/public/uploads/tmp
+/public/assets/**
+/coverage/
+/spec/tmp
+**.orig
+rerun.txt
+pickle-email-*.html
+/storage/
+
+## Environment normalisation:
+/.bundle
+/vendor/bundle
+.idea/
+.env
+
+# these should all be checked in to normalise the environment:
+# Gemfile.lock, .ruby-version, .ruby-gemset
+
+# unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
+.rvmrc
+.ruby-gemset
+
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key

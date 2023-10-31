@@ -20,6 +20,10 @@ sv:
         manage_vote_users: Hantera användare
         manage_voting: Hantera röstning
         new_item: Ny dagordningspunkt
+        set_all_future: Sätt alla punkter till framtida
+        set_all_closed: Sätt alla punkter till stängd
+        set_next_active: Gör nästa punkt aktiv
+        set_prev_active: Gör föregående punkt aktiv
         title: Administrera dagordning
       new:
         all_items: Alla punkter

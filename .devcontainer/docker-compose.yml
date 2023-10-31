@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:15-alpine3.18
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: root
+      RAILS_ENV: development
+    volumes:
+      - ./.docker/volumes/database:/var/lib/postgresql/data
+    
+
+  app:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+      target: development
+    command: sleep infinity
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: root
+      RAILS_ENV: development
+    volumes:
+      - ../:/usr/src/app
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    
+
