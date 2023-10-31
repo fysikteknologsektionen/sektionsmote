@@ -253,4 +253,64 @@ Devise.setup do |config|
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+
+  # ==> Configuration for :saml_authenticatable
+  # Create user if the user does not exist. (Default is false)
+  config.saml_create_user = true
+
+  # Update the attributes of the user after a successful login. (Default is false)
+  config.saml_update_user = true
+
+  # Set the default user key. The user will be looked up by this key. Make
+  # sure that the Authentication Response includes the attribute.
+  config.saml_default_user_key = :email
+
+  # Optional. This stores the session index defined by the IDP during login.  If provided it will be used as a salt
+  # for the user's session to facilitate an IDP initiated logout request.
+  config.saml_session_index_key = :session_index
+
+  # You can set this value to use Subject or SAML assertation as info to which email will be compared.
+  # If you don't set it then email will be extracted from SAML assertation attributes.
+  config.saml_use_subject = false
+
+  # You can support multiple IdPs by setting this value to a class that implements a #settings method which takes
+  # an IdP entity id as an argument and returns a hash of idp settings for the corresponding IdP.
+  config.idp_settings_adapter = nil
+
+  # You provide you own method to find the idp_entity_id in a SAML message in the case of multiple IdPs
+  # by setting this to a custom reader class, or use the default.
+  # config.idp_entity_id_reader = DeviseSamlAuthenticatable::DefaultIdpEntityIdReader
+
+  # You can set a handler object that takes the response for a failed SAML request and the strategy,
+  # and implements a #handle method. This method can then redirect the user, return error messages, etc.
+  # config.saml_failed_callback = nil
+
+  # You can customize the named routes generated in case of named route collisions with
+  # other Devise modules or libraries. Set the saml_route_helper_prefix to a string that will
+  # be appended to the named route.
+  # If saml_route_helper_prefix = 'saml' then the new_user_session route becomes new_saml_user_session
+  # config.saml_route_helper_prefix = 'saml'
+
+  # You can add allowance for clock drift between the sp and idp.
+  # This is a time in seconds.
+  # config.allowed_clock_drift_in_seconds = 0
+
+  # Configure with your SAML settings (see ruby-saml's README for more information: https://github.com/onelogin/ruby-saml).
+  # (done in environments)
+  config.saml_configure &Rails.application.config.x.saml_configure
+
+  config.saml_update_resource_hook = Proc.new do |user, saml_response, auth_value|
+    saml_response.attributes.resource_keys.each do |key|
+      user.send "#{key}=", saml_response.attribute_value_by_resource_key(key)
+    end
+
+    if (Devise.saml_use_subject)
+      user.send "#{Devise.saml_default_user_key}=", auth_value
+    end
+    unless (user.confirmed?)
+      user.skip_confirmation!
+    end
+
+    user.save!
+ end
 end

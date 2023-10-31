@@ -5,8 +5,8 @@ class User < ApplicationRecord
   EMPTY_CARD = '____-____-____-____'
   acts_as_paranoid
   paginates_per(40)
-  devise(:database_authenticatable, :registerable,
-         :recoverable, :rememberable,
+  devise(:database_authenticatable, :saml_authenticatable,
+         :registerable, :recoverable, :rememberable,
          :validatable, :confirmable)
 
   validates :email, uniqueness: true
@@ -93,6 +93,12 @@ class User < ApplicationRecord
 
   def updater
     User.current.id if User.current && !destroyed?
+  end
+
+  protected
+
+  def password_required?
+    return false
   end
 
   private
