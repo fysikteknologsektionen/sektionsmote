@@ -119,12 +119,12 @@ Rails.application.configure do
     # assertion_consumer_service_url is required starting with ruby-saml 1.4.3: https://github.com/onelogin/ruby-saml#updating-from-142-to-143
     settings.assertion_consumer_service_url     = "#{SCHEME}://#{PUBLIC_URL}/users/saml/auth"
     settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
-    settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"
-    settings.issuer                             = "#{SCHEME}://#{PUBLIC_URL}/users/saml/metadata"
+    settings.name_identifier_format              = "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"
+    settings.sp_entity_id                       = "#{SCHEME}://#{PUBLIC_URL}/users/saml/metadata"
     settings.authn_context                      = ""
     settings.idp_slo_target_url                 = "https://idp.chalmers.se/adfs/ls/"
     settings.idp_sso_target_url                 = "https://idp.chalmers.se/adfs/ls/"
-    settings.idp_cert_fingerprint               = "62:21:03:75:B6:D8:9E:FB:C3:ED:F0:7B:0F:30:59:8B:6E:2A:FF:AE"
-    settings.idp_cert_fingerprint_algorithm     = "http://www.w3.org/2000/09/xmldsig#sha1"
+    settings.idp_cert_fingerprint                = "62:21:03:75:B6:D8:9E:FB:C3:ED:F0:7B:0F:30:59:8B:6E:2A:FF:AE"
+    settings.idp_cert_fingerprint_algorithm      = "http://www.w3.org/2000/09/xmldsig#sha1"
   end
 end
