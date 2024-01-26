@@ -120,7 +120,7 @@ Rails.application.configure do
     settings.assertion_consumer_service_url     = "#{SCHEME}://#{PUBLIC_URL}/users/saml/auth"
     settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
     settings.protocol_binding                   = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
-    settings.name_identifier_format              = "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"
+    # settings.name_identifier_format              = "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"
     settings.issuer                             = "#{SCHEME}://#{PUBLIC_URL}/users/saml/metadata"
     settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
     settings.idp_slo_target_url                 = "https://idp.chalmers.se/adfs/ls/"
