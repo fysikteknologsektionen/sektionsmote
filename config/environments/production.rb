@@ -127,6 +127,5 @@ Rails.application.configure do
     settings.idp_sso_target_url                 = "https://idp.chalmers.se/adfs/ls/"
     settings.idp_cert_fingerprint                = "62:21:03:75:B6:D8:9E:FB:C3:ED:F0:7B:0F:30:59:8B:6E:2A:FF:AE"
     settings.idp_cert_fingerprint_algorithm      = "http://www.w3.org/2000/09/xmldsig#sha1"
-    settings.security[:soft]                    = true  # Do not raise error on failed signature/certificate validations
   end
 end
