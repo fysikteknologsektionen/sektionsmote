@@ -125,7 +125,8 @@ Rails.application.configure do
     settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
     settings.idp_slo_target_url                 = "https://idp.chalmers.se/adfs/ls/"
     settings.idp_sso_target_url                 = "https://idp.chalmers.se/adfs/ls/"
-    settings.idp_cert_fingerprint                = "62:21:03:75:B6:D8:9E:FB:C3:ED:F0:7B:0F:30:59:8B:6E:2A:FF:AE"
-    settings.idp_cert_fingerprint_algorithm      = "http://www.w3.org/2000/09/xmldsig#sha1"
+    settings.idp_cert                           = "MIIDqTCCApGgAwIBAgIUJvJG3zA1H52oNzOAXoQe57Mk9AwwDQYJKoZIhvcNAQELBQAwZDELMAkGA1UEBhMCU0UxDDAKBgNVBAgMA1ZHUjEMMAoGA1UEBwwDR0JHMREwDwYDVQQKDAhDaGFsbWVyczEMMAoGA1UECwwDSVRBMRgwFgYDVQQDDA9pZHAuY2hhbG1lcnMuc2UwHhcNMjAwNzIwMTIzNTI4WhcNNDYwMzExMTIzNTI4WjBkMQswCQYDVQQGEwJTRTEMMAoGA1UECAwDVkdSMQwwCgYDVQQHDANHQkcxETAPBgNVBAoMCENoYWxtZXJzMQwwCgYDVQQLDANJVEExGDAWBgNVBAMMD2lkcC5jaGFsbWVycy5zZTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAPuaynUvXy5n8He3Jefpxz2ELpaXM9mzhiLlF6NK41XJeLo7OsLD0l3kQH2AXQMXvkKV0hoh/dwxlUImj/jCCpBpdF8z4LmYtz4/+FNYq+fMSCf/TkhB2AbLJbPD+AT+yrrlPr3R7Smjd0emtgPWM20NcbBflTM9Uh2jZMeQLHSJu3dIoRW4cdZOKgwonVMTaocccDxxEMQUqE6k/mYCFmCVEYIGLBnkDPSixNIDtzY+WY70bN12HLwLhPhxCz8wS3C/NhXF5gNoChXcfUB3Fxw4lY4GuH49D5cwyvtVNNJR1uCVJFlSbj+xe9bjqjkKwal78iPcxSTLD1SBxPeia1kCAwEAAaNTMFEwHQYDVR0OBBYEFLHkg8AuJUdGvsY0mwofGr9cHWGfMB8GA1UdIwQYMBaAFLHkg8AuJUdGvsY0mwofGr9cHWGfMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAC2nyf2NAWnIpedq7cA4tJsodhxDFNSS6tPPav4MypL2rC46a0W/YL5QJn32qoFTMJNfLglu2NWUfUeSKD22XlH/PKV4z/BPFtC9EXNmNbp2aBXSnoC5rmNr1VL/RgTPHL9ebx7BkpM+y/zAbLOeyKtlfumzDt30PrZAImcIHOp7LqkZjmb4RQFHWZc62pzbNjrXhywbTK3ry6K0U7gk1SvWxjD6U/cWSASaYotqWJryWoo7pVcLTGUUYmfCNi+IGINW+KRhUuH4W7+1STwh104kedGkUcbhXaNGtEpqQPwhNFnEnKZFiKy74rN/Ks2Puvinr2CeoSlfk1mRQSkiGxk="
+    # settings.idp_cert_fingerprint                = "62:21:03:75:B6:D8:9E:FB:C3:ED:F0:7B:0F:30:59:8B:6E:2A:FF:AE"
+    # settings.idp_cert_fingerprint_algorithm      = "http://www.w3.org/2000/09/xmldsig#sha1"
   end
 end
